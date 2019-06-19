@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://192.168.137.234:3306/laboratory_equipment_management_system?characterEncoding=UTF-8
+    username: test
+    password: 23wistestfor509pi
+    driver-class-name: org.mariadb.jdbc.Driver
+mybatis:
+  type-aliases-package: com.resetful.model
+#  mapper-locations: classpath:mybatis/mapper/*.xml
+#  config-location: classpath:mybatis/mybatis-config.xml
