@@ -15,4 +15,8 @@ StaffMapper staffMapper;
     public List<Staff> getAllStaff() {
         return staffMapper.getAllStaff();
     }
+    public Staff getStaffByNo(Integer No) {
+        return staffMapper.getStaffByNo(No);
+    }
+    public void insertStaff(Staff staff){staffMapper.insertStaff(staff);}
 }
