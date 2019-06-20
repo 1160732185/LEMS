@@ -22,8 +22,9 @@ import java.util.Map;
 public class LoginController {
     @ApiOperation(value = "登录服务提交数据", notes = "提交数据测试用", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "body"),
-            @ApiImplicitParam(name = "staffPassword", value = "staffPassword", dataType = "String", paramType = "body")
+            /*@ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "body"),
+            @ApiImplicitParam(name = "staffPassword", value = "staffPassword", dataType = "String", paramType = "body")*/
+            @ApiImplicitParam(name = "logininfo", value = "Json", dataType = "String", paramType = "body"),
     })
     @RequestMapping(value = "/login/form",method = {RequestMethod.POST},produces = "application/json")
     public void loginForm(){
