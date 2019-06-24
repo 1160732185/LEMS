@@ -19,4 +19,14 @@ StaffMapper staffMapper;
         return staffMapper.getStaffByNo(No);
     }
     public void insertStaff(Staff staff){staffMapper.insertStaff(staff);}
+
+    @Override
+    public void updateStaff(Staff staff) {
+        staffMapper.updateStaff(staff);
+    }
+
+    @Override
+    public void deleteStaff(Integer No) {
+        staffMapper.deleteStaff(No);
+    }
 }

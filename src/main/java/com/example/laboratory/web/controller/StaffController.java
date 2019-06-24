@@ -55,7 +55,7 @@ public class StaffController {
             @ApiImplicitParam(name = "staff", value = "staff", dataType = "Staff", paramType = "body"),
     })
     @RequestMapping(value = "/staff", method = RequestMethod.POST,produces = "application/json")
-    public MessageBox insertParent(@RequestBody Staff staff)
+    public MessageBox insertStaff(@RequestBody Staff staff)
     {
         MessageBox messageBox=new MessageBox();
         try{
@@ -70,6 +70,31 @@ public class StaffController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_STAFF_SUCCESS_CODE);
+        messageBox.setMessage("insert staff success");
+        logger.info(messageBox.getMessage());
+        return messageBox;
+    }
+
+    @ApiOperation(value = "更新员工", notes = "更新员工", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staff", value = "staff", dataType = "Staff", paramType = "body"),
+    })
+    @RequestMapping(value = "/staff", method = RequestMethod.PUT,produces = "application/json")
+    public MessageBox updateStaff(@RequestBody Staff staff)
+    {
+        MessageBox messageBox=new MessageBox();
+        try{
+            staff.setStaffRegisterTime(new Date());
+            staffService.updateStaff(staff);
+        }
+        catch ( Exception e)
+        {
+            messageBox.setStatus(MessageBox.UPDATE_STAFF_FAILURE_CODE);
+            messageBox.setMessage(e.getMessage());
+            logger.error(messageBox.getMessage());
+            return messageBox;
+        }
+        messageBox.setStatus(MessageBox.UPDATE_STAFF_SUCCESS_CODE);
         messageBox.setMessage("insert staff success");
         logger.info(messageBox.getMessage());
         return messageBox;

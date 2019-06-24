@@ -27,21 +27,23 @@ public class LEMSUserDetailsService implements UserDetailsService {
 
     private Staff getLoginUser(String s)throws UsernameNotFoundException
     {
-        int id=-1;
-        try{
-            id=Integer.valueOf(s);
-        } catch (NumberFormatException e)
-        {
-
-        }
         Staff staffBean=null;
-        if(id!=-1)
-            staffBean=staffService.getStaffByNo(Integer.valueOf(s));
-        if(staffBean==null)
-        {
-                    if((staffBean=staffService.getStaffByNo(Integer.valueOf(s)))==null)
-                        throw new UsernameNotFoundException("找不到该账户信息！");
+        int id=-1;
+        int error = 0;
+        if(s==null) return staffBean;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)<48||s.charAt(i)>57) {throw new UsernameNotFoundException("用户名格式不匹配！");}
         }
-        return staffBean;
+            try {
+                id = Integer.valueOf(s);
+            } catch (NumberFormatException e) {
+            }
+            if (id != -1)
+                staffBean = staffService.getStaffByNo(Integer.valueOf(s));
+            if (staffBean == null) {
+                if ((staffBean = staffService.getStaffByNo(Integer.valueOf(s))) == null)
+                    throw new UsernameNotFoundException("找不到该账户信息！");
+            }
+            return staffBean;
     }
 }

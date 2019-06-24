@@ -9,4 +9,6 @@ public interface StaffService {
     List<Staff> getAllStaff();
     Staff getStaffByNo(Integer No);
     void insertStaff(Staff staff);
+    void updateStaff(Staff staff);
+    void deleteStaff(Integer No);
 }

@@ -17,12 +17,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if(request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)
-            ||(request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE))){
+       /* if(request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE)
+            ||(request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE))){*/
             //json与java转换
             ObjectMapper mapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = request.getInputStream()) {
+/*                byte[] b = new byte[1000];
+                is.read(b);
+                String str = new String(b);
+                System.out.println("读到的数据："+str);*/
                 Map<String,String> authenticationBean = mapper.readValue(is, Map.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
                         authenticationBean.get("username"), authenticationBean.get("password"));
@@ -34,9 +38,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 setDetails(request, authRequest);
                 return this.getAuthenticationManager().authenticate(authRequest);
             }
-        }
+     /*   }
         else {
             return super.attemptAuthentication(request, response);
-        }
+        }*/
     }
 }
