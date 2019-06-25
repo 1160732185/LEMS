@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface DeviceMapper {
     @Select("select * from device where deviceNo=#{No}")
-    public Device getDeviceByNo(Integer No);
+    public Device getDeviceByNo(String No);
 
     @Select("select * from device ")
     public List<Device> getAllDevice ();
@@ -22,5 +22,5 @@ public interface DeviceMapper {
     public void updateDevice(Device device);
 
     @Delete("delete from device where deviceNo=#{No}")
-    public void deleteDevice(Integer No);
+    public void deleteDevice(String No);
 }

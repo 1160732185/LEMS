@@ -14,6 +14,38 @@ public class MessageBox {
     final static public int INSERT_STAFF_SUCCESS_CODE=2004;
     final static public int INSERT_STAFF_FAILURE_CODE=2005;
 
+
+    final static public int UPDATE_ROOM_SUCCESS_CODE=3000;
+    final static public int UPDATE_ROOM_FAILURE_CODE=3001;
+    final static public int DELETE_ROOM_SUCCESS_CODE=3002;
+    final static public int DELETE_ROOM_FAILURE_CODE=3003;
+    final static public int INSERT_ROOM_SUCCESS_CODE=3004;
+    final static public int INSERT_ROOM_FAILURE_CODE=3005;
+
+    final static public int UPDATE_MODEL_SUCCESS_CODE=4000;
+    final static public int UPDATE_MODEL_FAILURE_CODE=4001;
+    final static public int DELETE_MODEL_SUCCESS_CODE=4002;
+    final static public int DELETE_MODEL_FAILURE_CODE=4003;
+    final static public int INSERT_MODEL_SUCCESS_CODE=4004;
+    final static public int INSERT_MODEL_FAILURE_CODE=4005;
+
+    final static public int UPDATE_FIRM_SUCCESS_CODE=5000;
+    final static public int UPDATE_FIRM_FAILURE_CODE=5001;
+    final static public int DELETE_FIRM_SUCCESS_CODE=5002;
+    final static public int DELETE_FIRM_FAILURE_CODE=5003;
+    final static public int INSERT_FIRM_SUCCESS_CODE=5004;
+    final static public int INSERT_FIRM_FAILURE_CODE=5005;
+
+    final static public int UPDATE_DEVICE_SUCCESS_CODE=6000;
+    final static public int UPDATE_DEVICE_FAILURE_CODE=6001;
+    final static public int DELETE_DEVICE_SUCCESS_CODE=6002;
+    final static public int DELETE_DEVICE_FAILURE_CODE=6003;
+    final static public int INSERT_DEVICE_SUCCESS_CODE=6004;
+    final static public int INSERT_DEVICE_FAILURE_CODE=6005;
+
+
+
+
     private int status;
 
     private String message;

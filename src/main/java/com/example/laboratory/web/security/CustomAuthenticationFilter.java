@@ -23,6 +23,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             ObjectMapper mapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = request.getInputStream()) {
+/*                byte[] b = new byte[1000];
+                is.read(b);
+                String str = new String(b);
+                System.out.println("读到的数据："+str);*/
                 Map<String,String> authenticationBean = mapper.readValue(is, Map.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
                         authenticationBean.get("username"), authenticationBean.get("password"));
