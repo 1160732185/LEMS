@@ -8,10 +8,18 @@ import java.util.List;
 
 @Mapper
 public interface RoomMapper {
-    @Select("select * from room where roomNo=#{No}")
-    public Room getRoomByNo(Integer No);
+    @Select("select r.roomNo,r.roomName,r.roomType,r.roomState,r.roomAddress,r.roomAddDate from room r,staff_room sr " +
+            "where r.roomNo=sr.roomNo and r.roomNo=#{roomNo} and staffNo=#{staffNo}")
+    public Room getRoomByNoS(Integer roomNo,Integer staffNo);
 
-    @Select("select * from room ")
+    @Select("select * from room where roomNo=#{roomNo}")
+    public Room getRoomByNo(Integer roomNo);
+
+    @Select("select r.roomNo,r.roomName,r.roomType,r.roomState,r.roomAddress,r.roomAddDate from room r,staff_room sr " +
+            "where r.roomNo=sr.roomNo and staffNo=#{staffNo}")
+    public List<Room> getAllRoomS (Integer staffNo);
+
+    @Select("select * from room")
     public List<Room> getAllRoom ();
 
     @Insert("insert into room(roomName,roomAddress,roomTtpe,roomState,roomAddDate)" +

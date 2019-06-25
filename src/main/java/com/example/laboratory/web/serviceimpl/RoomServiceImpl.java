@@ -11,8 +11,10 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     RoomMapper roomMapper;
     @Override
+    public List<Room> getAllRoomS(Integer staffNo) { return roomMapper.getAllRoomS(staffNo); }
     public List<Room> getAllRoom() { return roomMapper.getAllRoom(); }
-    public Room getRoomByNo(Integer No) { return roomMapper.getRoomByNo(No); }
+    public Room getRoomByNoS(Integer roomNo,Integer staffNo) { return roomMapper.getRoomByNoS(roomNo,staffNo); }
+    public Room getRoomByNo(Integer roomNo) { return roomMapper.getRoomByNo(roomNo); }
     public void insertRoom(Room room){roomMapper.insertRoom(room);}
     public void updateRoom(Room room) { roomMapper.updateRoom(room); }
     public void deleteRoom(Integer No) { roomMapper.deleteRoom(No); }
