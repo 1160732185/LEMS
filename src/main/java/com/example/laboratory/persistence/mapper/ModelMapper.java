@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ModelMapper {
     @Select("select * from model where modelNo=#{No}")
-    public Model getModelByNo(Integer No);
+    public Model getModelByNo(String No);
 
     @Select("select * from model ")
     public List<Model> getAllModel ();
@@ -22,5 +22,5 @@ public interface ModelMapper {
     public void updateModel(Model model);
 
     @Delete("delete from model where modelNo=#{No}")
-    public void deleteModel(Integer No);
+    public void deleteModel(String No);
 }

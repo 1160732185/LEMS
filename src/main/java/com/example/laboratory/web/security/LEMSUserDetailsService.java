@@ -23,8 +23,8 @@ public class LEMSUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Staff staffBean=getLoginUser(s);
-
-        return new org.springframework.security.core.userdetails.User(String.valueOf(staffBean.getStaffNo()),passwordEncoder.encode(staffBean.getStaffPassword()), AuthorityUtils.commaSeparatedStringToAuthorityList(staffBean.getStaffDuty()));
+        UserDetails ud = new org.springframework.security.core.userdetails.User(String.valueOf(staffBean.getStaffNo()),passwordEncoder.encode(staffBean.getStaffPassword()), AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+staffBean.getStaffDuty()));
+        return ud;
     }
 
     private Staff getLoginUser(String s)throws UsernameNotFoundException
@@ -33,6 +33,7 @@ public class LEMSUserDetailsService implements UserDetailsService {
         int id=-1;
         int error = 0;
         if(s==null) return staffBean;
+        System.out.println(s);
         for(int i=0;i<s.length();i++){
             if(s.charAt(i)<48||s.charAt(i)>57) {
                 log.info("用户名格式不匹配:"+s);

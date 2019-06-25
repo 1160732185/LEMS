@@ -30,7 +30,7 @@ public class LoginController {
     })
     @RequestMapping(value = "/login/form",method = {RequestMethod.POST},produces = "application/json")
     public void loginForm(){
-
+System.out.println("aaa");
     }
 
 

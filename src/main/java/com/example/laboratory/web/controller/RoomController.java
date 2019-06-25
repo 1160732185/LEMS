@@ -1,0 +1,129 @@
+package com.example.laboratory.web.controller;
+
+import com.example.laboratory.common.model.Room;
+import com.example.laboratory.web.controller.pojo.MessageBox;
+import com.example.laboratory.web.service.RoomService;
+import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.List;
+
+@Api
+@RestController
+@RequestMapping("api/v1")
+public class RoomController {
+    @Autowired
+    RoomService roomService;
+    private static final Logger logger = LoggerFactory.getLogger(RoomController.class);
+
+    @ApiOperation(value = "获取房间列表", notes = "获取房间列表", produces = "application/json")
+    @RequestMapping(value = "/room", method = RequestMethod.GET,produces = "application/json")
+    public List<Room> getAllRoom() {
+        return roomService.getAllRoom();
+    }
+
+
+    @ApiOperation(value = "根据No获取房间", notes = "根据No获取房间", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roomNo", value = "No", dataType = "string", paramType = "path"),
+    })
+    @RequestMapping(value = "/room/{roomNo}", method = RequestMethod.GET,produces = "application/json")
+    public Room getRoom(@PathVariable("roomNo")String roomNo){
+        int No=-1;
+        try{
+            No=Integer.valueOf(roomNo);
+        } catch (NumberFormatException e)
+        {
+
+        }
+        Room roomBean=null;
+        if(No!=-1)
+            roomBean=roomService.getRoomByNo(Integer.valueOf(roomNo));
+        if(roomBean==null)
+        {
+            logger.error(new UsernameNotFoundException("找不到该房间信息！").getMessage());
+        }
+        return roomBean;
+    }
+
+    @ApiOperation(value = "添加房间", notes = "添加房间", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "room", value = "room", dataType = "Room", paramType = "body"),
+    })
+    @RequestMapping(value = "/room", method = RequestMethod.POST,produces = "application/json")
+    public MessageBox insertRoom(@RequestBody Room room)
+    {
+        MessageBox messageBox=new MessageBox();
+        try{
+            room.setRoomAddDate(new Date());
+            roomService.insertRoom(room);
+        }
+        catch ( Exception e)
+        {
+            messageBox.setStatus(MessageBox.INSERT_ROOM_FAILURE_CODE);
+            messageBox.setMessage(e.getMessage());
+            logger.error(messageBox.getMessage());
+            return messageBox;
+        }
+        messageBox.setStatus(MessageBox.INSERT_ROOM_SUCCESS_CODE);
+        messageBox.setMessage("insert room success"+room.getRoomName());
+        logger.info(messageBox.getMessage());
+        return messageBox;
+    }
+
+    @ApiOperation(value = "更新房间", notes = "更新房间", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "room", value = "room", dataType = "Room", paramType = "body"),
+    })
+    @RequestMapping(value = "/room", method = RequestMethod.PUT,produces = "application/json")
+    public MessageBox updateRoom(@RequestBody Room room)
+    {
+        MessageBox messageBox=new MessageBox();
+        try{
+            room.setRoomAddDate(new Date());
+            roomService.updateRoom(room);
+        }
+        catch ( Exception e)
+        {
+            messageBox.setStatus(MessageBox.UPDATE_ROOM_FAILURE_CODE);
+            messageBox.setMessage(e.getMessage());
+            logger.error(messageBox.getMessage());
+            return messageBox;
+        }
+        messageBox.setStatus(MessageBox.UPDATE_ROOM_SUCCESS_CODE);
+        messageBox.setMessage("update room success");
+        logger.info(messageBox.getMessage()+room.getRoomName());
+        return messageBox;
+    }
+
+    @ApiOperation(value = "删除房间", notes = "删除房间", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roomNo", value = "No", dataType = "string", paramType = "path"),
+    })
+    @RequestMapping(value = "/room/{roomNo}", method = RequestMethod.DELETE,produces = "application/json")
+    public MessageBox deleteUser(@PathVariable("roomNo") String roomNo)
+    {
+        MessageBox messageBox=new MessageBox();
+        try{
+            roomService.deleteRoom(Integer.valueOf(roomNo));
+        }
+        catch ( Exception e)
+        {
+            messageBox.setStatus(MessageBox.DELETE_ROOM_FAILURE_CODE);
+            messageBox.setMessage(e.getMessage());
+            return messageBox;
+        }
+        messageBox.setStatus(MessageBox.DELETE_ROOM_SUCCESS_CODE);
+        messageBox.setMessage("delete room success");
+        logger.info(messageBox.getMessage()+roomNo);
+        return messageBox;
+    }
+
+}

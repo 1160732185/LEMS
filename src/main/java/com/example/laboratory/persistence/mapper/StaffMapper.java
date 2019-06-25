@@ -7,11 +7,14 @@ import java.util.List;
 
 @Mapper
 public interface StaffMapper {
+    @Select("select count(*) from staff")
+    public  Integer getStaffCount();
+
     @Select("select * from staff where staffNo=#{No}")
     public Staff getStaffByNo(Integer No);
 
-    @Select("select * from staff")
-    public List<Staff> getAllStaff();
+    @Select("select * from staff limit #{firstRow},#{pageSize} ")
+    public List<Staff> getAllStaff(Integer firstRow,Integer pageSize);
 
     @Insert("insert into staff(staffName,staffSex,staffEmail,staffPassword,staffTelephone,staffDuty,staffRegisterTime)" +
             " values(#{staffName},#{staffSex},#{staffEmail},#{staffPassword},#{staffTelephone},#{staffDuty},#{staffRegisterTime})")

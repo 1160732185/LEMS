@@ -1,15 +1,14 @@
 package com.example.laboratory.web.security;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-/**
- * @author suntongxin
- * Create on 2017年7月6日下午8:05:19
- * ADD Cors
- */
+
+
+
 @Configuration
 public class CorsConfig {
     private CorsConfiguration buildConfig() {
@@ -17,6 +16,8 @@ public class CorsConfig {
         corsConfiguration.addAllowedOrigin("*"); //允许任何域名
         corsConfiguration.addAllowedHeader("*"); //允许任何头
         corsConfiguration.addAllowedMethod("*"); //允许任何方法
+        corsConfiguration.setMaxAge(360000L);      //预检验有效期
+        corsConfiguration.setAllowCredentials(true);// 是否支持安全证书
         return corsConfiguration;
     }
 

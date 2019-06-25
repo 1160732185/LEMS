@@ -12,21 +12,14 @@ public class StaffServiceImpl implements StaffService {
 @Autowired
 StaffMapper staffMapper;
     @Override
-    public List<Staff> getAllStaff() {
-        return staffMapper.getAllStaff();
+    public List<Staff> getAllStaff(Integer firstRow,Integer pageSize) {
+        return staffMapper.getAllStaff(firstRow,pageSize);
     }
     public Staff getStaffByNo(Integer No) {
         return staffMapper.getStaffByNo(No);
     }
     public void insertStaff(Staff staff){staffMapper.insertStaff(staff);}
-
-    @Override
-    public void updateStaff(Staff staff) {
-        staffMapper.updateStaff(staff);
-    }
-
-    @Override
-    public void deleteStaff(Integer No) {
-        staffMapper.deleteStaff(No);
-    }
+    public void updateStaff(Staff staff) { staffMapper.updateStaff(staff); }
+    public void deleteStaff(Integer No) { staffMapper.deleteStaff(No); }
+    public Integer getStaffCount(){return staffMapper.getStaffCount();}
 }
