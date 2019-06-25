@@ -28,14 +28,19 @@ public class RoomController {
     private static final Logger logger = LoggerFactory.getLogger(RoomController.class);
 
     @ApiOperation(value = "获取房间列表", notes = "获取房间列表", produces = "application/json")
-    @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    })
     @RequestMapping(value = "/room", method = RequestMethod.GET,produces = "application/json")
-    public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo) {
+    public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo,@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
         Staff staff = staffService.getStaffByNo(staffNo);
+        Integer firstRow=pageIndex*pageSize;
         if(staff.getStaffDuty().equals("普通员工")) {
-            return roomService.getAllRoomS(staffNo);
+            return roomService.getAllRoomS(staffNo,firstRow,pageSize);
         }
-        return roomService.getAllRoom();
+        return roomService.getAllRoom(firstRow,pageSize);
     }
 
 

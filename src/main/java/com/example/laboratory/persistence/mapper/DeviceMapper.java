@@ -15,7 +15,7 @@ public interface DeviceMapper {
     public List<Device> getAllDevice ();
 
     @Insert("insert into device(deviceName,deviceTtpe,deviceNorm,devicePrice)" +
-            " values(#{deviceName},#{deviceType},#{deviceNorm},#{devicePrice}")
+            " values(#{deviceName},#{deviceType},#{deviceNorm},#{devicePrice})")
     public void insertDevice(Device device);
 
     @Update("update device set deviceName = #{deviceName},devicePrice = #{devicePrice},deviceType = #{deviceType},deviceNorm = #{deviceNorm} where deviceNo = #{deviceNo}")

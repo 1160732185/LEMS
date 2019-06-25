@@ -11,8 +11,8 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     RoomMapper roomMapper;
     @Override
-    public List<Room> getAllRoomS(Integer staffNo) { return roomMapper.getAllRoomS(staffNo); }
-    public List<Room> getAllRoom() { return roomMapper.getAllRoom(); }
+    public List<Room> getAllRoomS(Integer staffNo,Integer firstRow,Integer pageSize) { return roomMapper.getAllRoomS(staffNo,firstRow,pageSize); }
+    public List<Room> getAllRoom(Integer firstRow,Integer pageSize) { return roomMapper.getAllRoom(firstRow,pageSize); }
     public Room getRoomByNoS(Integer roomNo,Integer staffNo) { return roomMapper.getRoomByNoS(roomNo,staffNo); }
     public Room getRoomByNo(Integer roomNo) { return roomMapper.getRoomByNo(roomNo); }
     public void insertRoom(Room room){roomMapper.insertRoom(room);}

@@ -8,14 +8,17 @@ import java.util.List;
 
 @Mapper
 public interface FirmMapper {
+    @Select("select count(*) from firm")
+    public  Integer getFirmCount();
+
     @Select("select * from firm where firmNo=#{No}")
     public Firm getFirmByNo(Integer No);
 
-    @Select("select * from firm ")
-    public List<Firm> getAllFirm ();
+    @Select("select * from firm limit #{firstRow},#{pageSize} ")
+    public List<Firm> getAllFirm(Integer firstRow,Integer pageSize);
 
     @Insert("insert into firm(firmName,firmAddress,firmContacter,firmTelephone,firmEmail,firmAddDate)" +
-            " values(#{firmName},#{firmAddress},#{firmContacter},#{firmTelephone},#{firmEmail},#{firmAddDate}")
+            " values(#{firmName},#{firmAddress},#{firmContacter},#{firmTelephone},#{firmEmail},#{firmAddDate})")
     public void insertFirm(Firm firm);
 
     @Update("update firm set firmAddress = #{firmAddress},firmContacter = #{firmContacter},firmTelephone = #{firmTelephone},firmEmail = #{firmEmail} where firmNo = #{firmNo}")

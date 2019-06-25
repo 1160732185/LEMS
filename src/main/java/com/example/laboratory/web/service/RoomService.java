@@ -5,8 +5,8 @@ import com.example.laboratory.common.model.Room;
 import java.util.List;
 
 public interface RoomService {
-    List<Room> getAllRoomS(Integer staffNo);
-    List<Room> getAllRoom();
+    List<Room> getAllRoomS(Integer staffNo,Integer firstRow,Integer pageSize);
+    List<Room> getAllRoom(Integer firstRow,Integer pageSize);
     Room getRoomByNo(Integer roomNo);
     Room getRoomByNoS(Integer roomNo,Integer staffNo);
     void insertRoom(Room room);

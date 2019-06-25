@@ -23,10 +23,23 @@ public class FirmController {
     FirmService firmService;
     private static final Logger logger = LoggerFactory.getLogger(FirmController.class);
 
+    @ApiOperation(value = "获取公司数量", notes = "获取公司数量", produces = "application/json")
+    @RequestMapping(value = "/firm/count", method = RequestMethod.GET,produces = "application/json")
+    public Integer getStaffSum() {
+        return firmService.getFirmCount();
+    }
+
+
+
     @ApiOperation(value = "获取生产公司列表", notes = "获取生产公司列表", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
+    })
     @RequestMapping(value = "/firm", method = RequestMethod.GET,produces = "application/json")
-    public List<Firm> getAllFirm() {
-        return firmService.getAllFirm();
+    public List<Firm> getAllFirm(@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
+        Integer firstRow=pageIndex*pageSize;
+        return firmService.getAllFirm(firstRow,pageSize);
     }
 
 
