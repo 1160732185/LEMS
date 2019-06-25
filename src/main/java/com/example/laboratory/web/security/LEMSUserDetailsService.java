@@ -2,6 +2,8 @@ package com.example.laboratory.web.security;
 
 import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.web.service.StaffService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class LEMSUserDetailsService implements UserDetailsService {
     @Autowired
     StaffService staffService;
-
+    private static final Logger log = LoggerFactory.getLogger(LEMSUserDetailsService.class);
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
@@ -32,7 +34,9 @@ public class LEMSUserDetailsService implements UserDetailsService {
         int error = 0;
         if(s==null) return staffBean;
         for(int i=0;i<s.length();i++){
-            if(s.charAt(i)<48||s.charAt(i)>57) {throw new UsernameNotFoundException("用户名格式不匹配！");}
+            if(s.charAt(i)<48||s.charAt(i)>57) {
+                log.info("用户名格式不匹配:"+s);
+                throw new UsernameNotFoundException("用户名格式不匹配！");}
         }
             try {
                 id = Integer.valueOf(s);
@@ -42,6 +46,7 @@ public class LEMSUserDetailsService implements UserDetailsService {
                 staffBean = staffService.getStaffByNo(Integer.valueOf(s));
             if (staffBean == null) {
                 if ((staffBean = staffService.getStaffByNo(Integer.valueOf(s))) == null)
+                    log.info("找不到该账户信息:"+s);
                     throw new UsernameNotFoundException("找不到该账户信息！");
             }
             return staffBean;

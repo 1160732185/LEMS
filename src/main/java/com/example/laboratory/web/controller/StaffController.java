@@ -70,7 +70,7 @@ public class StaffController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_STAFF_SUCCESS_CODE);
-        messageBox.setMessage("insert staff success");
+        messageBox.setMessage("insert staff success"+staff.getStaffName());
         logger.info(messageBox.getMessage());
         return messageBox;
     }
@@ -95,8 +95,8 @@ public class StaffController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.UPDATE_STAFF_SUCCESS_CODE);
-        messageBox.setMessage("insert staff success");
-        logger.info(messageBox.getMessage());
+        messageBox.setMessage("update staff success");
+        logger.info(messageBox.getMessage()+staff.getStaffName());
         return messageBox;
     }
 
