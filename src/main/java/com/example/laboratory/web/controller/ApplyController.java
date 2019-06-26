@@ -90,7 +90,7 @@ public class ApplyController {
             @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query")
     })
-    @RequestMapping(value = "/apply/{applyNo}", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value = "/apply/applyType", method = RequestMethod.GET,produces = "application/json")
     public List<Apply> getApplyByType(@PathVariable("applyType")String applyType,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
         Staff staff = staffService.getStaffByNo(staffNo);
         if(staff.getStaffDuty().equals("普通员工")){
@@ -107,7 +107,7 @@ public class ApplyController {
             @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query")
     })
-    @RequestMapping(value = "/apply/{applyNo}", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value = "/apply/applyState", method = RequestMethod.GET,produces = "application/json")
     public List<Apply> getApplyByState(@PathVariable("applyState")String applyState,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
         Staff staff = staffService.getStaffByNo(staffNo);
         if(staff.getStaffDuty().equals("普通员工")){

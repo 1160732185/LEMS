@@ -93,7 +93,7 @@ public class StaffController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_STAFF_SUCCESS_CODE);
-        messageBox.setMessage("insert staff success"+staff.getStaffName());
+        messageBox.setMessage(staff.getStaffNo().toString());
         logger.info(messageBox.getMessage());
         return messageBox;
     }
