@@ -50,12 +50,26 @@ public class MessageBox {
     final static public int INSERT_APPLY_SUCCESS_CODE=7004;
     final static public int INSERT_APPLY_FAILURE_CODE=7005;
 
+    final static public int UPDATE_APPLYDETAIL_SUCCESS_CODE=7100;
+    final static public int UPDATE_APPLYDETAIL_FAILURE_CODE=7101;
+    final static public int DELETE_APPLYDETAIL_SUCCESS_CODE=7102;
+    final static public int DELETE_APPLYDETAIL_FAILURE_CODE=7103;
+    final static public int INSERT_APPLYDETAIL_SUCCESS_CODE=7104;
+    final static public int INSERT_APPLYDETAIL_FAILURE_CODE=7105;
+
     final static public int UPDATE_REPAIR_SUCCESS_CODE=8000;
     final static public int UPDATE_REPAIR_FAILURE_CODE=8001;
     final static public int DELETE_REPAIR_SUCCESS_CODE=8002;
     final static public int DELETE_REPAIR_FAILURE_CODE=8003;
     final static public int INSERT_REPAIR_SUCCESS_CODE=8004;
     final static public int INSERT_REPAIR_FAILURE_CODE=8005;
+
+    final static public int UPDATE_DISUSE_SUCCESS_CODE=9000;
+    final static public int UPDATE_DISUSE_FAILURE_CODE=9001;
+    final static public int DELETE_DISUSE_SUCCESS_CODE=9002;
+    final static public int DELETE_DISUSE_FAILURE_CODE=9003;
+    final static public int INSERT_DISUSE_SUCCESS_CODE=9004;
+    final static public int INSERT_DISUSE_FAILURE_CODE=9005;
 
 
 

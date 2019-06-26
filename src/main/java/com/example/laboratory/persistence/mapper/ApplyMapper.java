@@ -14,12 +14,23 @@ public interface ApplyMapper {
     @Select("select count(*) from apply")
     public Integer getApplyCount ();
 
+    @Select("select * from apply where applyType=#{applyType} and staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
+    public  List<Apply> getApplyByTypeS(String applyType,Integer staffNo,Integer firstRow,Integer pageSize);
+
+    @Select("select * from apply where applyType=#{applyType} limit #{firstRow},#{pageSize}")
+    public  List<Apply> getApplyByType(String applyType,Integer firstRow,Integer pageSize);
+
+    @Select("select * from apply where applyState=#{applyState} and staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
+    public  List<Apply> getApplyByStateS(String applyState,Integer staffNo,Integer firstRow,Integer pageSize);
+
+    @Select("select * from apply where applyState=#{applyState} limit #{firstRow},#{pageSize}")
+    public  List<Apply> getApplyByState(String applyState,Integer firstRow,Integer pageSize);
 
     @Select("select * from apply where applyNo=#{applyNo} and staffNo=#{staffNo}")
-    public Apply getApplyByNoS(Integer applyNo,Integer staffNo);
+    public Apply getApplyByNoS(String applyNo,Integer staffNo);
 
     @Select("select * from apply where applyNo=#{applyNo}")
-    public Apply getApplyByNo(Integer applyNo);
+    public Apply getApplyByNo(String applyNo);
 
     @Select("select * from apply where staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
     public List<Apply> getAllApplyS (Integer staffNo,Integer firstRow,Integer pageSize);
@@ -38,5 +49,5 @@ public interface ApplyMapper {
     public void updateApply(Apply apply);
 
     @Delete("delete from apply where applyNo=#{No}")
-    public void deleteApply(Integer No);
+    public void deleteApply(String No);
 }

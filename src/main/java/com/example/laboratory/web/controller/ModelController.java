@@ -23,6 +23,13 @@ public class ModelController {
     ModelService modelService;
     private static final Logger logger = LoggerFactory.getLogger(ModelController.class);
 
+    @ApiOperation(value = "获取产品所有型号", notes = "获取产品所有型号", produces = "application/json")
+    @RequestMapping(value = "/model/modelNo", method = RequestMethod.GET,produces = "application/json")
+    public List<String> getAllModelNo() {
+        return modelService.getAllModelNo();
+    }
+
+
     @ApiOperation(value = "获取产品数量", notes = "获取产品数量", produces = "application/json")
     @RequestMapping(value = "/model/count", method = RequestMethod.GET,produces = "application/json")
     public MessageBox getModelSum() {
@@ -35,9 +42,14 @@ public class ModelController {
 
 
     @ApiOperation(value = "获取产品型号列表", notes = "获取产品型号列表", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
+    })
     @RequestMapping(value = "/model", method = RequestMethod.GET,produces = "application/json")
-    public List<Model> getAllModel() {
-        return modelService.getAllModel();
+    public List<Model> getAllModel(@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
+        Integer firstRow=pageIndex*pageSize;
+        return modelService.getAllModel(firstRow,pageSize);
     }
 
 

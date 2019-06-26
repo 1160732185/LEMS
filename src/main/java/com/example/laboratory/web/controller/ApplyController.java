@@ -64,11 +64,11 @@ public class ApplyController {
 
     @ApiOperation(value = "根据No获取申请单", notes = "根据No获取申请单", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "applyNo", value = "applyNo", dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "applyNo", value = "applyNo", dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/apply/{applyNo}", method = RequestMethod.GET,produces = "application/json")
-    public Apply getApply(@PathVariable("applyNo")Integer applyNo,@RequestParam("staffNo")Integer staffNo){
+    public Apply getApply(@PathVariable("applyNo")String applyNo,@RequestParam("staffNo")Integer staffNo){
         Staff staff = staffService.getStaffByNo(staffNo);
         Apply applyBean=null;
         if(staff.getStaffDuty().equals("普通员工")){
@@ -82,6 +82,41 @@ public class ApplyController {
         }
         return applyBean;
     }
+
+    @ApiOperation(value = "根据Type获取申请单", notes = "根据Type获取申请单", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "applyType", value = "applyType", dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query")
+    })
+    @RequestMapping(value = "/apply/applyType", method = RequestMethod.GET,produces = "application/json")
+    public List<Apply> getApplyByType(@PathVariable("applyType")String applyType,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return applyService.getApplyByTypeS(applyType,staffNo,pageIndex*pageSize,pageSize);
+        }else{
+            return applyService.getApplyByType(applyType,pageIndex*pageSize,pageSize);
+        }
+    }
+
+    @ApiOperation(value = "根据State获取申请单", notes = "根据State获取申请单", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "applyState", value = "applyState", dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query")
+    })
+    @RequestMapping(value = "/apply/applyState", method = RequestMethod.GET,produces = "application/json")
+    public List<Apply> getApplyByState(@PathVariable("applyState")String applyState,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return applyService.getApplyByStateS(applyState,staffNo,pageIndex*pageSize,pageSize);
+        }else{
+            return applyService.getApplyByState(applyState,pageIndex*pageSize,pageSize);
+        }
+    }
+
 
     @ApiOperation(value = "添加申请单", notes = "添加申请单", produces = "application/json")
     @ApiImplicitParams({
@@ -122,7 +157,7 @@ public class ApplyController {
     @RequestMapping(value = "/apply", method = RequestMethod.PUT,produces = "application/json")
     public MessageBox updateApply(@RequestParam("staffNo") Integer staffNo, @RequestBody Apply apply)
     {
-        Apply applybean = applyService.getApplyByNo(Integer.parseInt(apply.getApplyNo()));
+        Apply applybean = applyService.getApplyByNo(apply.getApplyNo());
         MessageBox messageBox=new MessageBox();
         if(applybean.getApplyState().equals("已通过")){
             messageBox.setStatus(MessageBox.UPDATE_APPLY_FAILURE_CODE);
@@ -138,7 +173,7 @@ public class ApplyController {
                 applyService.updateApplyS(apply);
             }else{
                 apply.setApplyUpdateDate(new Date());
-                apply.setCheckStaffNo(staff.getStaffNo());
+/*                apply.setCheckStaffNo(staff.getStaffNo());*/
                 applyService.updateApply(apply);
             }
         }
@@ -164,7 +199,7 @@ public class ApplyController {
     {
         MessageBox messageBox=new MessageBox();
         try{
-            applyService.deleteApply(Integer.valueOf(applyNo));
+            applyService.deleteApply(applyNo);
         }
         catch ( Exception e)
         {
