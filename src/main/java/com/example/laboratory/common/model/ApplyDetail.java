@@ -1,17 +1,17 @@
 package com.example.laboratory.common.model;
 
 public class ApplyDetail {
-    private String modelName;
+    private String modelNo;
     private String applyNo;
     private Integer applyDetailQuantity;
     private String applyDetailUnit;
 
-    public String getModelName() {
-        return modelName;
+    public String getModelNo() {
+        return modelNo;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setModelNo(String modelNo) {
+        this.modelNo = modelNo;
     }
 
     public String getApplyNo() {
@@ -41,7 +41,7 @@ public class ApplyDetail {
     @Override
     public String toString() {
         return "ApplyDetail{" +
-                "modelName='" + modelName + '\'' +
+                "modelNo='" + modelNo + '\'' +
                 ", applyNo='" + applyNo + '\'' +
                 ", applyDetailQuantity=" + applyDetailQuantity +
                 ", applyDetailUnit='" + applyDetailUnit + '\'' +

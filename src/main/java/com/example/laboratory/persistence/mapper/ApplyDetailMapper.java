@@ -16,7 +16,7 @@ public interface ApplyDetailMapper {
     public void insertApplyDetail(ApplyDetail applydetail);
 
     @Update("update applydetail set applyDetailQuantity = #{applyDetailQuantity}, applyDetailUnit=#{applyDetailUnit}" +
-            "where  modelNo = #{modelNo} and applyNo = #{applyNo},")
+            "where  modelNo = #{modelNo} and applyNo = #{applyNo}")
     public void updateApplyDetail(ApplyDetail applydetail);
 
     @Delete("delete from applydetail where  modelNo = #{modelNo} and applyNo = #{applyNo}")

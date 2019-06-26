@@ -15,10 +15,13 @@ public class DisuseServiceImpl implements DisuseService {
     public Integer getDisuseCountS(Integer staffNo) { return disuseMapper.getDisuseCountS(staffNo); }
     public List<Disuse> getAllDisuseS(Integer staffNo, Integer firstRow, Integer pageSize) { return disuseMapper.getAllDisuseS(staffNo,firstRow,pageSize); }
     public List<Disuse> getAllDisuse(Integer firstRow,Integer pageSize) { return disuseMapper.getAllDisuse(firstRow,pageSize); }
-    public Disuse getDisuseByNoS(Integer disuseNo,Integer staffNo) { return disuseMapper.getDisuseByNoS(disuseNo,staffNo); }
-    public Disuse getDisuseByNo(Integer disuseNo) { return disuseMapper.getDisuseByNo(disuseNo); }
+    public List<Disuse> getAllDisuseByDisuseStateS(Integer staffNo,String disuseState , Integer firstRow, Integer pageSize){return disuseMapper.getAllDisuseByDisuseStateS(staffNo,disuseState,firstRow,pageSize);}
+    public List<Disuse> getAllDisuseByDisuseState(Integer firstRow,String disuseState ,Integer pageSize){return disuseMapper.getAllDisuseByDisuseState(firstRow,disuseState,pageSize);}
+    public Disuse getDisuseByNoS(String disuseNo,Integer staffNo) { return disuseMapper.getDisuseByNoS(disuseNo,staffNo); }
+    public Disuse getDisuseByNo(String disuseNo) { return disuseMapper.getDisuseByNo(disuseNo); }
+    public Disuse getDisuseByDeviceNo(String deviceNo) { return disuseMapper.getDisuseByDeviceNo(deviceNo); }
     public void insertDisuse(Disuse disuse){disuseMapper.insertDisuse(disuse);}
     public void updateDisuse(Disuse disuse) { disuseMapper.updateDisuse(disuse); }
     public void updateDisuseS(Disuse disuse) { disuseMapper.updateDisuseS(disuse); }
-    public void deleteDisuse(Integer No) { disuseMapper.deleteDisuse(No); }
+    public void deleteDisuse(String No) { disuseMapper.deleteDisuse(No); }
 }

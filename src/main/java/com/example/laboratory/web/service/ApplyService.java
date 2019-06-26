@@ -9,10 +9,10 @@ public interface ApplyService {
     Integer getApplyCountS(Integer staffNo);
     List<Apply> getAllApplyS(Integer staffNo,Integer firstRow,Integer pageSize);
     List<Apply> getAllApply(Integer firstRow,Integer pageSize);
-    Apply getApplyByNo(Integer applyNo);
-    Apply getApplyByNoS(Integer applyNo,Integer staffNo);
+    Apply getApplyByNo(String applyNo);
+    Apply getApplyByNoS(String applyNo,Integer staffNo);
     void insertApply(Apply apply);
     void updateApply(Apply apply);
     void updateApplyS(Apply apply);
-    void deleteApply(Integer No);
+    void deleteApply(String No);
 }

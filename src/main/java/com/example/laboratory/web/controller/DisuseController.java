@@ -62,13 +62,13 @@ public class DisuseController {
     }
 
 
-    @ApiOperation(value = "根据No获取报废单", notes = "根据No获取报废单", produces = "application/json")
+    @ApiOperation(value = "根据disuseNo获取报废单", notes = "根据disuseNo获取报废单", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "disuseNo", value = "disuseNo", dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "disuseNo", value = "disuseNo", dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/disuse/{disuseNo}", method = RequestMethod.GET,produces = "application/json")
-    public Disuse getDisuse(@PathVariable("disuseNo")Integer disuseNo,@RequestParam("staffNo")Integer staffNo){
+    public Disuse getDisuseByDisuseNo(@PathVariable("disuseNo")String disuseNo,@RequestParam("staffNo")Integer staffNo){
         Staff staff = staffService.getStaffByNo(staffNo);
         Disuse disuseBean=null;
         if(staff.getStaffDuty().equals("普通员工")){
@@ -81,6 +81,33 @@ public class DisuseController {
             logger.error(new UsernameNotFoundException("找不到该报废单信息！").getMessage());
         }
         return disuseBean;
+    }
+
+    @ApiOperation(value = "根据deviceNo获取报废单", notes = "根据deviceNo获取报废单", produces = "application/json")
+    @ApiImplicitParam(name = "deviceNo", value = "disuseNo", dataType = "String", paramType = "path")
+    @RequestMapping(value = "/disuse/deviceNo/{deviceNo}", method = RequestMethod.GET,produces = "application/json")
+    public Disuse getDisuseByDeviceNo(@PathVariable("deviceNo")String deviceNo,@RequestParam("staffNo")Integer staffNo){
+        Disuse disuseBean=disuseService.getDisuseByDeviceNo(deviceNo);
+        if(disuseBean==null)
+        {
+            logger.error(new UsernameNotFoundException("找不到该报废单信息！").getMessage());
+        }
+        return disuseBean;
+    }
+
+    @ApiOperation(value = "根据disuseState获取报废单", notes = "根据disuseState获取报废单", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "disuseState", value = "disuseState", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    })
+    @RequestMapping(value = "/disuse/disuseState", method = RequestMethod.GET,produces = "application/json")
+    public List<Disuse> getDisuseByDisuseState(@RequestParam("disuseState")String disuseState,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return disuseService.getAllDisuseByDisuseStateS(staffNo,disuseState,pageIndex*pageSize,pageSize);
+        }else return  disuseService.getAllDisuseByDisuseState(pageIndex*pageSize,disuseState,pageSize);
     }
 
     @ApiOperation(value = "添加报废单", notes = "添加报废单", produces = "application/json")
@@ -122,7 +149,7 @@ public class DisuseController {
     @RequestMapping(value = "/disuse", method = RequestMethod.PUT,produces = "application/json")
     public MessageBox updateDisuse(@RequestParam("staffNo") Integer staffNo, @RequestBody Disuse disuse)
     {
-        Disuse disusebean = disuseService.getDisuseByNo(Integer.parseInt(disuse.getDisuseNo()));
+        Disuse disusebean = disuseService.getDisuseByNo(disuse.getDisuseNo());
         MessageBox messageBox=new MessageBox();
         if(disusebean.getDisuseState().equals("已通过")||disusebean.getDisuseState().equals("未通过")){
             messageBox.setStatus(MessageBox.UPDATE_DISUSE_FAILURE_CODE);
@@ -164,7 +191,7 @@ public class DisuseController {
     {
         MessageBox messageBox=new MessageBox();
         try{
-            disuseService.deleteDisuse(Integer.valueOf(disuseNo));
+            disuseService.deleteDisuse(disuseNo);
         }
         catch ( Exception e)
         {

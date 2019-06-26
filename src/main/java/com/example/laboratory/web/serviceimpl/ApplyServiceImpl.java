@@ -15,10 +15,10 @@ public class ApplyServiceImpl implements ApplyService {
     public Integer getApplyCountS(Integer staffNo) { return applyMapper.getApplyCountS(staffNo); }
     public List<Apply> getAllApplyS(Integer staffNo,Integer firstRow,Integer pageSize) { return applyMapper.getAllApplyS(staffNo,firstRow,pageSize); }
     public List<Apply> getAllApply(Integer firstRow,Integer pageSize) { return applyMapper.getAllApply(firstRow,pageSize); }
-    public Apply getApplyByNoS(Integer applyNo,Integer staffNo) { return applyMapper.getApplyByNoS(applyNo,staffNo); }
-    public Apply getApplyByNo(Integer applyNo) { return applyMapper.getApplyByNo(applyNo); }
+    public Apply getApplyByNoS(String applyNo,Integer staffNo) { return applyMapper.getApplyByNoS(applyNo,staffNo); }
+    public Apply getApplyByNo(String applyNo) { return applyMapper.getApplyByNo(applyNo); }
     public void insertApply(Apply apply){applyMapper.insertApply(apply);}
     public void updateApply(Apply apply) { applyMapper.updateApply(apply); }
     public void updateApplyS(Apply apply) { applyMapper.updateApplyS(apply); }
-    public void deleteApply(Integer No) { applyMapper.deleteApply(No); }
+    public void deleteApply(String No) { applyMapper.deleteApply(No); }
 }

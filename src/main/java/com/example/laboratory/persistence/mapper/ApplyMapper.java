@@ -16,10 +16,10 @@ public interface ApplyMapper {
 
 
     @Select("select * from apply where applyNo=#{applyNo} and staffNo=#{staffNo}")
-    public Apply getApplyByNoS(Integer applyNo,Integer staffNo);
+    public Apply getApplyByNoS(String applyNo,Integer staffNo);
 
     @Select("select * from apply where applyNo=#{applyNo}")
-    public Apply getApplyByNo(Integer applyNo);
+    public Apply getApplyByNo(String applyNo);
 
     @Select("select * from apply where staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
     public List<Apply> getAllApplyS (Integer staffNo,Integer firstRow,Integer pageSize);
@@ -38,5 +38,5 @@ public interface ApplyMapper {
     public void updateApply(Apply apply);
 
     @Delete("delete from apply where applyNo=#{No}")
-    public void deleteApply(Integer No);
+    public void deleteApply(String No);
 }

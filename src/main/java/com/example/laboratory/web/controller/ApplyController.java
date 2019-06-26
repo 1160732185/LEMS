@@ -64,11 +64,11 @@ public class ApplyController {
 
     @ApiOperation(value = "根据No获取申请单", notes = "根据No获取申请单", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "applyNo", value = "applyNo", dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "applyNo", value = "applyNo", dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/apply/{applyNo}", method = RequestMethod.GET,produces = "application/json")
-    public Apply getApply(@PathVariable("applyNo")Integer applyNo,@RequestParam("staffNo")Integer staffNo){
+    public Apply getApply(@PathVariable("applyNo")String applyNo,@RequestParam("staffNo")Integer staffNo){
         Staff staff = staffService.getStaffByNo(staffNo);
         Apply applyBean=null;
         if(staff.getStaffDuty().equals("普通员工")){
@@ -122,7 +122,7 @@ public class ApplyController {
     @RequestMapping(value = "/apply", method = RequestMethod.PUT,produces = "application/json")
     public MessageBox updateApply(@RequestParam("staffNo") Integer staffNo, @RequestBody Apply apply)
     {
-        Apply applybean = applyService.getApplyByNo(Integer.parseInt(apply.getApplyNo()));
+        Apply applybean = applyService.getApplyByNo(apply.getApplyNo());
         MessageBox messageBox=new MessageBox();
         if(applybean.getApplyState().equals("已通过")){
             messageBox.setStatus(MessageBox.UPDATE_APPLY_FAILURE_CODE);
@@ -164,7 +164,7 @@ public class ApplyController {
     {
         MessageBox messageBox=new MessageBox();
         try{
-            applyService.deleteApply(Integer.valueOf(applyNo));
+            applyService.deleteApply(applyNo);
         }
         catch ( Exception e)
         {
