@@ -28,8 +28,11 @@ public class StaffController {
 
     @ApiOperation(value = "获取员工数量", notes = "获取员工数量", produces = "application/json")
     @RequestMapping(value = "/staff/count", method = RequestMethod.GET,produces = "application/json")
-    public Integer getStaffSum() {
-        return staffService.getStaffCount();
+    public MessageBox getStaffSum() {
+        MessageBox messageBox = new MessageBox();
+        messageBox.setStatus(staffService.getStaffCount());
+        messageBox.setMessage("total");
+        return messageBox;
     }
 
 

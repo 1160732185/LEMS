@@ -18,4 +18,5 @@ public class ModelServiceImpl implements ModelService {
     public void insertModel(Model model){modelMapper.insertModel(model);}
     public void updateModel(Model model) { modelMapper.updateModel(model); }
     public void deleteModel(String No) { modelMapper.deleteModel(No); }
+    public Integer getModelCount(){return modelMapper.getModelCount();}
 }

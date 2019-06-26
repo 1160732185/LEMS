@@ -12,4 +12,5 @@ public interface StaffService {
     void updateStaff(Staff staff);
     void deleteStaff(Integer No);
     Integer getStaffCount();
+
 }

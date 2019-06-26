@@ -8,14 +8,25 @@ import java.util.List;
 
 @Mapper
 public interface DeviceMapper {
+    @Select("select count(*) from device d,staff_room sr " +
+            "where d.roomNo=sr.roomNo and staffNo=#{staffNo}")
+    public Integer getDeviceCountS (Integer staffNo);
+
+    @Select("select count(*) from device")
+    public Integer getDeviceCount ();
+
     @Select("select * from device where deviceNo=#{No}")
     public Device getDeviceByNo(String No);
 
     @Select("select * from device ")
     public List<Device> getAllDevice ();
 
-    @Insert("insert into device(deviceName,deviceTtpe,deviceNorm,devicePrice)" +
-            " values(#{deviceName},#{deviceType},#{deviceNorm},#{devicePrice}")
+    @Select("select deviceNo,d.staffNo,firmNo,modelNo,d.roomNo,deviceAddDate,deviceState from device d,staff_room sr " +
+            "where d.roomNo=sr.roomNo and sr.staffNo=#{staffNo}")
+    public List<Device> getAllDeviceS (Integer staffNo);
+
+    @Insert("insert into device(deviceName,deviceType,deviceNorm,devicePrice)" +
+            " values(#{deviceName},#{deviceType},#{deviceNorm},#{devicePrice})")
     public void insertDevice(Device device);
 
     @Update("update device set deviceName = #{deviceName},devicePrice = #{devicePrice},deviceType = #{deviceType},deviceNorm = #{deviceNorm} where deviceNo = #{deviceNo}")

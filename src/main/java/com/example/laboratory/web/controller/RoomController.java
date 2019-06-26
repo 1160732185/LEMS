@@ -1,12 +1,12 @@
 package com.example.laboratory.web.controller;
 
 import com.example.laboratory.common.model.Room;
+import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.web.controller.pojo.MessageBox;
 import com.example.laboratory.web.service.RoomService;
+import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -21,31 +21,60 @@ import java.util.List;
 public class RoomController {
     @Autowired
     RoomService roomService;
+    @Autowired
+    StaffService staffService;
     private static final Logger logger = LoggerFactory.getLogger(RoomController.class);
 
+    @ApiOperation(value = "获取房间数量", notes = "获取房间数量", produces = "application/json")
+    @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    @RequestMapping(value = "/room/count", method = RequestMethod.GET,produces = "application/json")
+    public MessageBox getRoomSum(@RequestParam("staffNo") Integer staffNo) {
+        Staff staff = staffService.getStaffByNo(staffNo);
+        MessageBox messageBox = new MessageBox();
+        if(staff.getStaffDuty().equals("普通员工")) {
+            messageBox.setMessage("total");
+            messageBox.setStatus(roomService.getRoomCountS(staffNo));
+        }else {
+            messageBox.setStatus(roomService.getRoomCount());
+            messageBox.setMessage("total");
+        }
+        return messageBox;
+    }
+
+
     @ApiOperation(value = "获取房间列表", notes = "获取房间列表", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    })
     @RequestMapping(value = "/room", method = RequestMethod.GET,produces = "application/json")
-    public List<Room> getAllRoom() {
-        return roomService.getAllRoom();
+    public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize) {
+        Staff staff = staffService.getStaffByNo(staffNo);
+        System.out.println("查看的参数：");
+        System.out.println(staffNo);System.out.println(pageIndex);System.out.println(pageSize);
+        Integer firstRow=pageIndex*pageSize;
+        if(staff.getStaffDuty().equals("普通员工")) {
+            return roomService.getAllRoomS(staffNo,firstRow,pageSize);
+        }
+        return roomService.getAllRoom(firstRow,pageSize);
     }
 
 
     @ApiOperation(value = "根据No获取房间", notes = "根据No获取房间", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roomNo", value = "No", dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "roomNo", value = "roomNo", dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/room/{roomNo}", method = RequestMethod.GET,produces = "application/json")
-    public Room getRoom(@PathVariable("roomNo")String roomNo){
-        int No=-1;
-        try{
-            No=Integer.valueOf(roomNo);
-        } catch (NumberFormatException e)
-        {
-
-        }
+    public Room getRoom(@PathVariable("roomNo")Integer roomNo,@RequestParam("staffNo")Integer staffNo){
+        Staff staff = staffService.getStaffByNo(staffNo);
         Room roomBean=null;
-        if(No!=-1)
-            roomBean=roomService.getRoomByNo(Integer.valueOf(roomNo));
+        if(staff.getStaffDuty().equals("普通员工")){
+            roomBean=roomService.getRoomByNoS(roomNo,staffNo);
+        }else{
+            roomBean=roomService.getRoomByNo(roomNo);
+        }
         if(roomBean==null)
         {
             logger.error(new UsernameNotFoundException("找不到该房间信息！").getMessage());
