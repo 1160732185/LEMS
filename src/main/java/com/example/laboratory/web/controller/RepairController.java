@@ -106,7 +106,7 @@ public class RepairController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_REPAIR_SUCCESS_CODE);
-        messageBox.setMessage("insert repair success"+repair.getRepairNo());
+        messageBox.setMessage(repair.getRepairNo());
         logger.info(messageBox.getMessage());
         return messageBox;
     }

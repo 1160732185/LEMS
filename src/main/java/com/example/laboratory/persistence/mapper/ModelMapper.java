@@ -14,8 +14,11 @@ public interface ModelMapper {
     @Select("select * from model where modelNo=#{No}")
     public Model getModelByNo(String No);
 
-    @Select("select * from model ")
-    public List<Model> getAllModel ();
+    @Select("select * from model  limit #{firstRow},#{pageSize} ")
+    public List<Model> getAllModel (Integer firstRow,Integer pageSize);
+
+    @Select("select modelNo from model ")
+    public List<String> getAllModelNo ();
 
     @Insert("insert into model(modelNo,modelName,modelType,modelNorm,modelPrice)" +
             " values(#{modelNo},#{modelName},#{modelType},#{modelNorm},#{modelPrice})")

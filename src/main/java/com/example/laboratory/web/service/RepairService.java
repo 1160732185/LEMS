@@ -10,6 +10,7 @@ public interface RepairService {
     List<Repair> getAllRepairS(Integer staffNo, Integer firstRow, Integer pageSize);
     List<Repair> getAllRepair(Integer firstRow,Integer pageSize);
     Repair getRepairByNo(Integer repairNo);
+    Repair getRepairByDevice(String deviceNo);
     Repair getRepairByNoS(Integer repairNo,Integer staffNo);
     void insertRepair(Repair repair);
     void updateRepair(Repair repair);

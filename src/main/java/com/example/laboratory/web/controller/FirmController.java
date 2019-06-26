@@ -48,20 +48,12 @@ public class FirmController {
 
     @ApiOperation(value = "根据No获取生产公司", notes = "根据No获取生产公司", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "firmNo", value = "No", dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "firmNo", value = "No", dataType = "Integer", paramType = "path"),
     })
     @RequestMapping(value = "/firm/{firmNo}", method = RequestMethod.GET,produces = "application/json")
-    public Firm getFirm(@PathVariable("firmNo")String firmNo){
-        int No=-1;
-        try{
-            No=Integer.valueOf(firmNo);
-        } catch (NumberFormatException e)
-        {
-
-        }
+    public Firm getFirm(@PathVariable("firmNo")Integer firmNo){
         Firm firmBean=null;
-        if(No!=-1)
-            firmBean=firmService.getFirmByNo(Integer.valueOf(firmNo));
+            firmBean=firmService.getFirmByNo(firmNo);
         if(firmBean==null)
         {
             logger.error(new UsernameNotFoundException("找不到该生产公司信息！").getMessage());

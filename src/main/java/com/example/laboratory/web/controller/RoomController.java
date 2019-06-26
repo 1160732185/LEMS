@@ -51,8 +51,7 @@ public class RoomController {
     @RequestMapping(value = "/room", method = RequestMethod.GET,produces = "application/json")
     public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize) {
         Staff staff = staffService.getStaffByNo(staffNo);
-        System.out.println("查看的参数：");
-        System.out.println(staffNo);System.out.println(pageIndex);System.out.println(pageSize);
+        logger.info(staffNo+"正在查看房间列表");
         Integer firstRow=pageIndex*pageSize;
         if(staff.getStaffDuty().equals("普通员工")) {
             return roomService.getAllRoomS(staffNo,firstRow,pageSize);

@@ -138,7 +138,7 @@ public class ApplyController {
                 applyService.updateApplyS(apply);
             }else{
                 apply.setApplyUpdateDate(new Date());
-                apply.setCheckStaffNo(staff.getStaffNo());
+/*                apply.setCheckStaffNo(staff.getStaffNo());*/
                 applyService.updateApply(apply);
             }
         }

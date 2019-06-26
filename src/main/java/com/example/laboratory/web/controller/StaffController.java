@@ -44,7 +44,7 @@ public class StaffController {
     })
     @RequestMapping(value = "/staff", method = RequestMethod.GET,produces = "application/json")
     public List<Staff> getAllStaff(@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
-    System.out.println("aaaa");
+    logger.info("有人获取员工列表");
     Integer firstRow=pageIndex*pageSize;
         return staffService.getAllStaff(firstRow,pageSize);
     }
@@ -68,7 +68,7 @@ public class StaffController {
             staffBean=staffService.getStaffByNo(Integer.valueOf(staffNo));
         if(staffBean==null)
         {
-                        logger.error(new UsernameNotFoundException("找不到该账户信息！").getMessage());
+            logger.error(new UsernameNotFoundException("找不到该账户信息！").getMessage());
         }
         return staffBean;
     }

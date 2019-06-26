@@ -13,7 +13,8 @@ public class ModelServiceImpl implements ModelService {
     @Autowired
     ModelMapper modelMapper;
     @Override
-    public List<Model> getAllModel() { return modelMapper.getAllModel(); }
+    public List<Model> getAllModel(Integer firstRow,Integer pageSize) { return modelMapper.getAllModel(firstRow,pageSize); }
+    public List<String> getAllModelNo() { return modelMapper.getAllModelNo(); }
     public Model getModelByNo(String No) { return modelMapper.getModelByNo(No); }
     public void insertModel(Model model){modelMapper.insertModel(model);}
     public void updateModel(Model model) { modelMapper.updateModel(model); }
