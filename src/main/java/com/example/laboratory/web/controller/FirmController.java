@@ -25,7 +25,7 @@ public class FirmController {
 
     @ApiOperation(value = "获取公司数量", notes = "获取公司数量", produces = "application/json")
     @RequestMapping(value = "/firm/count", method = RequestMethod.GET,produces = "application/json")
-    public Integer getStaffSum() {
+    public Integer getFirmSum() {
         return firmService.getFirmCount();
     }
 

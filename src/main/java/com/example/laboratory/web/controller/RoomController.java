@@ -7,8 +7,6 @@ import com.example.laboratory.web.service.RoomService;
 import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
@@ -27,6 +25,18 @@ public class RoomController {
     StaffService staffService;
     private static final Logger logger = LoggerFactory.getLogger(RoomController.class);
 
+    @ApiOperation(value = "获取房间数量", notes = "获取房间数量", produces = "application/json")
+    @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    @RequestMapping(value = "/room/count", method = RequestMethod.GET,produces = "application/json")
+    public Integer getRoomSum(@RequestParam("staffNo") Integer staffNo) {
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")) {
+            return roomService.getRoomCountS(staffNo);
+        }
+        return roomService.getRoomCount();
+    }
+
+
     @ApiOperation(value = "获取房间列表", notes = "获取房间列表", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
@@ -34,8 +44,10 @@ public class RoomController {
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/room", method = RequestMethod.GET,produces = "application/json")
-    public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo,@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
+    public List<Room> getAllRoom(@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize) {
         Staff staff = staffService.getStaffByNo(staffNo);
+        System.out.println("查看的参数：");
+        System.out.println(staffNo);System.out.println(pageIndex);System.out.println(pageSize);
         Integer firstRow=pageIndex*pageSize;
         if(staff.getStaffDuty().equals("普通员工")) {
             return roomService.getAllRoomS(staffNo,firstRow,pageSize);

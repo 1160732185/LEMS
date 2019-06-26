@@ -1,4 +1,3 @@
-/*
 package com.example.laboratory.web.security;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -30,4 +29,3 @@ public class CorsConfig {
         return new CorsFilter(source);
     }
 }
-*/

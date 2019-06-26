@@ -14,8 +14,8 @@ public interface ModelMapper {
     @Select("select * from model ")
     public List<Model> getAllModel ();
 
-    @Insert("insert into model(modelName,modelTtpe,modelNorm,modelPrice)" +
-            " values(#{modelName},#{modelType},#{modelNorm},#{modelPrice})")
+    @Insert("insert into model(modelNo,modelName,modelType,modelNorm,modelPrice)" +
+            " values(#{modelNo},#{modelName},#{modelType},#{modelNorm},#{modelPrice})")
     public void insertModel(Model model);
 
     @Update("update model set modelName = #{modelName},modelPrice = #{modelPrice},modelType = #{modelType},modelNorm = #{modelNorm} where modelNo = #{modelNo}")

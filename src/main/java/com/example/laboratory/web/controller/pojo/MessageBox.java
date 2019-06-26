@@ -43,6 +43,13 @@ public class MessageBox {
     final static public int INSERT_DEVICE_SUCCESS_CODE=6004;
     final static public int INSERT_DEVICE_FAILURE_CODE=6005;
 
+    final static public int UPDATE_APPLY_SUCCESS_CODE=7000;
+    final static public int UPDATE_APPLY_FAILURE_CODE=7001;
+    final static public int DELETE_APPLY_SUCCESS_CODE=7002;
+    final static public int DELETE_APPLY_FAILURE_CODE=7003;
+    final static public int INSERT_APPLY_SUCCESS_CODE=7004;
+    final static public int INSERT_APPLY_FAILURE_CODE=7005;
+
 
 
 

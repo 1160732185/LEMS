@@ -8,6 +8,15 @@ import java.util.List;
 
 @Mapper
 public interface RoomMapper {
+
+    @Select("select count(*) from room r,staff_room sr " +
+            "where r.roomNo=sr.roomNo and staffNo=#{staffNo}")
+    public Integer getRoomCountS (Integer staffNo);
+
+    @Select("select count(*) from room")
+    public Integer getRoomCount ();
+
+
     @Select("select r.roomNo,r.roomName,r.roomType,r.roomState,r.roomAddress,r.roomAddDate from room r,staff_room sr " +
             "where r.roomNo=sr.roomNo and r.roomNo=#{roomNo} and staffNo=#{staffNo}")
     public Room getRoomByNoS(Integer roomNo,Integer staffNo);
