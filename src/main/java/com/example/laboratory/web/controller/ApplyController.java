@@ -30,12 +30,17 @@ public class ApplyController {
     @ApiOperation(value = "获取申请单数量", notes = "获取申请单数量", produces = "application/json")
     @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     @RequestMapping(value = "/apply/count", method = RequestMethod.GET,produces = "application/json")
-    public Integer getApplySum(@RequestParam("staffNo") Integer staffNo) {
+    public MessageBox getApplySum(@RequestParam("staffNo") Integer staffNo) {
+        MessageBox messageBox=new MessageBox();
         Staff staff = staffService.getStaffByNo(staffNo);
         if(staff.getStaffDuty().equals("普通员工")) {
-            return applyService.getApplyCountS(staffNo);
+            messageBox.setMessage("total");
+            messageBox.setStatus(applyService.getApplyCountS(staffNo));
+            return messageBox;
         }
-        return applyService.getApplyCount();
+        messageBox.setMessage("total");
+        messageBox.setStatus(applyService.getApplyCount());
+        return messageBox;
     }
 
 
@@ -104,7 +109,7 @@ public class ApplyController {
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_APPLY_SUCCESS_CODE);
-        messageBox.setMessage("insert apply success"+apply.getApplyNo());
+        messageBox.setMessage(apply.getApplyNo());
         logger.info(messageBox.getMessage());
         return messageBox;
     }
@@ -112,15 +117,30 @@ public class ApplyController {
     @ApiOperation(value = "更新申请单", notes = "更新申请单", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "apply", value = "apply", dataType = "Apply", paramType = "body"),
-      /*      @ApiImplicitParam(name = "apply", value = "apply", dataType = "Apply", paramType = "body"),*/
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/apply", method = RequestMethod.PUT,produces = "application/json")
-    public MessageBox updateApply(@RequestBody Apply apply)
+    public MessageBox updateApply(@RequestParam("staffNo") Integer staffNo, @RequestBody Apply apply)
     {
+        Apply applybean = applyService.getApplyByNo(Integer.parseInt(apply.getApplyNo()));
         MessageBox messageBox=new MessageBox();
+        if(applybean.getApplyState().equals("已通过")){
+            messageBox.setStatus(MessageBox.UPDATE_APPLY_FAILURE_CODE);
+            messageBox.setMessage("订单已通过，不可修改");
+            logger.error(messageBox.getMessage());
+            return messageBox;
+        }
+        Staff staff = staffService.getStaffByNo(staffNo);
         try{
-            apply.setApplyDate(new Date());
-            applyService.updateApply(apply);
+            if(staff.getStaffDuty().equals("普通员工")){
+                apply.setApplyDate(new Date());
+                apply.setApplyStaffNo(staff.getStaffNo());
+                applyService.updateApplyS(apply);
+            }else{
+                apply.setApplyUpdateDate(new Date());
+                apply.setCheckStaffNo(staff.getStaffNo());
+                applyService.updateApply(apply);
+            }
         }
         catch ( Exception e)
         {

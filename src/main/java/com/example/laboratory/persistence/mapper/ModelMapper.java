@@ -8,6 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface ModelMapper {
+    @Select("select count(*) from model")
+    public  Integer getModelCount();
+
     @Select("select * from model where modelNo=#{No}")
     public Model getModelByNo(String No);
 
@@ -18,7 +21,7 @@ public interface ModelMapper {
             " values(#{modelNo},#{modelName},#{modelType},#{modelNorm},#{modelPrice})")
     public void insertModel(Model model);
 
-    @Update("update model set modelName = #{modelName},modelPrice = #{modelPrice},modelType = #{modelType},modelNorm = #{modelNorm} where modelNo = #{modelNo}")
+    @Update("update model set modelPrice = #{modelPrice},modelType = #{modelType},modelNorm = #{modelNorm} where modelNo = #{modelNo}")
     public void updateModel(Model model);
 
     @Delete("delete from model where modelNo=#{No}")

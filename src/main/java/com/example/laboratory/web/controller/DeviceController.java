@@ -1,8 +1,10 @@
 package com.example.laboratory.web.controller;
 
 import com.example.laboratory.common.model.Device;
+import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.web.controller.pojo.MessageBox;
 import com.example.laboratory.web.service.DeviceService;
+import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,13 +23,39 @@ import java.util.List;
 public class DeviceController {
     @Autowired
     DeviceService deviceService;
+    @Autowired
+    StaffService staffService;
     private static final Logger logger = LoggerFactory.getLogger(DeviceController.class);
 
     @ApiOperation(value = "获取设备列表", notes = "获取设备列表", produces = "application/json")
+    @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     @RequestMapping(value = "/device", method = RequestMethod.GET,produces = "application/json")
-    public List<Device> getAllDevice() {
-        return deviceService.getAllDevice();
+    public List<Device> getAllDevice(@RequestParam("staffNo") Integer staffNo) {
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if (staff.getStaffDuty().equals("普通员工")) {
+            return deviceService.getAllDeviceS(staffNo);
+        }else {
+            return deviceService.getAllDevice();
+        }
     }
+
+    @ApiOperation(value = "获取设备数量", notes = "获取设备数量", produces = "application/json")
+    @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    @RequestMapping(value = "/device/count", method = RequestMethod.GET,produces = "application/json")
+    public MessageBox getApplySum(@RequestParam("staffNo") Integer staffNo) {
+        MessageBox messageBox = new MessageBox();
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if (staff.getStaffDuty().equals("普通员工")) {
+            messageBox.setMessage("total");
+            messageBox.setStatus(deviceService.getDeviceCountS(staffNo));
+            return messageBox;
+        } else {
+            messageBox.setMessage("total");
+            messageBox.setStatus(deviceService.getDeviceCount());
+            return messageBox;
+        }
+    }
+
 
 
     @ApiOperation(value = "根据No获取设备", notes = "根据No获取设备", produces = "application/json")

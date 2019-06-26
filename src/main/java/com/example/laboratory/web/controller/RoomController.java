@@ -28,12 +28,17 @@ public class RoomController {
     @ApiOperation(value = "获取房间数量", notes = "获取房间数量", produces = "application/json")
     @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     @RequestMapping(value = "/room/count", method = RequestMethod.GET,produces = "application/json")
-    public Integer getRoomSum(@RequestParam("staffNo") Integer staffNo) {
+    public MessageBox getRoomSum(@RequestParam("staffNo") Integer staffNo) {
         Staff staff = staffService.getStaffByNo(staffNo);
+        MessageBox messageBox = new MessageBox();
         if(staff.getStaffDuty().equals("普通员工")) {
-            return roomService.getRoomCountS(staffNo);
+            messageBox.setMessage("total");
+            messageBox.setStatus(roomService.getRoomCountS(staffNo));
+        }else {
+            messageBox.setStatus(roomService.getRoomCount());
+            messageBox.setMessage("total");
         }
-        return roomService.getRoomCount();
+        return messageBox;
     }
 
 

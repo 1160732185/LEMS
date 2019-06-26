@@ -50,6 +50,13 @@ public class MessageBox {
     final static public int INSERT_APPLY_SUCCESS_CODE=7004;
     final static public int INSERT_APPLY_FAILURE_CODE=7005;
 
+    final static public int UPDATE_REPAIR_SUCCESS_CODE=8000;
+    final static public int UPDATE_REPAIR_FAILURE_CODE=8001;
+    final static public int DELETE_REPAIR_SUCCESS_CODE=8002;
+    final static public int DELETE_REPAIR_FAILURE_CODE=8003;
+    final static public int INSERT_REPAIR_SUCCESS_CODE=8004;
+    final static public int INSERT_REPAIR_FAILURE_CODE=8005;
+
 
 
 

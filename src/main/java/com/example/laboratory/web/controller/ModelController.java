@@ -23,6 +23,17 @@ public class ModelController {
     ModelService modelService;
     private static final Logger logger = LoggerFactory.getLogger(ModelController.class);
 
+    @ApiOperation(value = "获取产品数量", notes = "获取产品数量", produces = "application/json")
+    @RequestMapping(value = "/model/count", method = RequestMethod.GET,produces = "application/json")
+    public MessageBox getModelSum() {
+        MessageBox messageBox = new MessageBox();
+        messageBox.setStatus(modelService.getModelCount());
+        messageBox.setMessage("total");
+        return messageBox;
+    }
+
+
+
     @ApiOperation(value = "获取产品型号列表", notes = "获取产品型号列表", produces = "application/json")
     @RequestMapping(value = "/model", method = RequestMethod.GET,produces = "application/json")
     public List<Model> getAllModel() {

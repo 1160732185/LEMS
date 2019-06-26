@@ -31,7 +31,7 @@ public interface RoomMapper {
     @Select("select * from room limit #{firstRow},#{pageSize}")
     public List<Room> getAllRoom (Integer firstRow,Integer pageSize);
 
-    @Insert("insert into room(roomName,roomAddress,roomTtpe,roomState,roomAddDate)" +
+    @Insert("insert into room(roomName,roomAddress,roomType,roomState,roomAddDate)" +
             " values(#{roomName},#{roomAddress},#{roomType},#{roomState},#{roomAddDate})")
     public void insertRoom(Room room);
 

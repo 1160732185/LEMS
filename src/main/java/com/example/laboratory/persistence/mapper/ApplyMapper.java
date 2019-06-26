@@ -34,7 +34,7 @@ public interface ApplyMapper {
     @Update("update apply set applyReason = #{applyReason},applyType = #{applyType} where applyNo = #{applyNo}")
     public void updateApplyS(Apply apply);
 
-    @Update("update apply set applyUpdateDate = #{applyUpdateDate},applyUpdateInfo = #{applyUpdateInfo},applyState = #{applyState} where applyNo = #{applyNo}")
+    @Update("update apply set checkStaffNo=#{checkStaffNo},applyUpdateDate = #{applyUpdateDate},applyUpdateInfo = #{applyUpdateInfo},applyState = #{applyState} where applyNo = #{applyNo}")
     public void updateApply(Apply apply);
 
     @Delete("delete from apply where applyNo=#{No}")

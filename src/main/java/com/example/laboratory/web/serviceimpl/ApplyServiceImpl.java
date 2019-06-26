@@ -19,5 +19,6 @@ public class ApplyServiceImpl implements ApplyService {
     public Apply getApplyByNo(Integer applyNo) { return applyMapper.getApplyByNo(applyNo); }
     public void insertApply(Apply apply){applyMapper.insertApply(apply);}
     public void updateApply(Apply apply) { applyMapper.updateApply(apply); }
+    public void updateApplyS(Apply apply) { applyMapper.updateApplyS(apply); }
     public void deleteApply(Integer No) { applyMapper.deleteApply(No); }
 }

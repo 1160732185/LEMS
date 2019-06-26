@@ -13,5 +13,6 @@ public interface ApplyService {
     Apply getApplyByNoS(Integer applyNo,Integer staffNo);
     void insertApply(Apply apply);
     void updateApply(Apply apply);
+    void updateApplyS(Apply apply);
     void deleteApply(Integer No);
 }
