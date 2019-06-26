@@ -26,7 +26,7 @@ public interface DisuseMapper {
 
     @Select("select * from disuse limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuse (Integer firstRow,Integer pageSize);
-//todo
+
     @Select("select * from disuse where staffNo=#{staffNo} and disuseState = #{disuseState} limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuseByDisuseStateS (Integer staffNo,String disuseState ,Integer firstRow,Integer pageSize);
 

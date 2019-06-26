@@ -15,6 +15,27 @@ public class ApplyServiceImpl implements ApplyService {
     public Integer getApplyCountS(Integer staffNo) { return applyMapper.getApplyCountS(staffNo); }
     public List<Apply> getAllApplyS(Integer staffNo,Integer firstRow,Integer pageSize) { return applyMapper.getAllApplyS(staffNo,firstRow,pageSize); }
     public List<Apply> getAllApply(Integer firstRow,Integer pageSize) { return applyMapper.getAllApply(firstRow,pageSize); }
+
+    @Override
+    public List<Apply> getApplyByTypeS(String applyType, Integer staffNo, Integer firstRow, Integer pageSize) {
+        return applyMapper.getApplyByTypeS(applyType,staffNo,firstRow,pageSize);
+    }
+
+    @Override
+    public List<Apply> getApplyByType(String applyType, Integer firstRow, Integer pageSize) {
+        return applyMapper.getApplyByType(applyType,firstRow,pageSize);
+    }
+
+    @Override
+    public List<Apply> getApplyByStateS(String applyState, Integer staffNo, Integer firstRow, Integer pageSize) {
+        return applyMapper.getApplyByStateS(applyState,staffNo,firstRow,pageSize);
+    }
+
+    @Override
+    public List<Apply> getApplyByState(String applyState, Integer firstRow, Integer pageSize) {
+        return applyMapper.getApplyByState(applyState,firstRow,pageSize);
+    }
+
     public Apply getApplyByNoS(String applyNo,Integer staffNo) { return applyMapper.getApplyByNoS(applyNo,staffNo); }
     public Apply getApplyByNo(String applyNo) { return applyMapper.getApplyByNo(applyNo); }
     public void insertApply(Apply apply){applyMapper.insertApply(apply);}
