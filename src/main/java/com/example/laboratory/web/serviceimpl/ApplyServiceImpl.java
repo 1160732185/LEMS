@@ -36,6 +36,26 @@ public class ApplyServiceImpl implements ApplyService {
         return applyMapper.getApplyByState(applyState,firstRow,pageSize);
     }
 
+    @Override
+    public Integer getApplyByTypeCS(String applyType, Integer staffNo) {
+        return applyMapper.getApplyByTypeCS(applyType,staffNo);
+    }
+
+    @Override
+    public Integer getApplyByTypeC(String applyType) {
+        return applyMapper.getApplyByTypeC(applyType);
+    }
+
+    @Override
+    public Integer getApplyByStateCS(String applyType, Integer staffNo) {
+        return applyMapper.getApplyByStateCS(applyType,staffNo);
+    }
+
+    @Override
+    public Integer getApplyByStateC(String applyType) {
+        return applyMapper.getApplyByStateC(applyType);
+    }
+
     public Apply getApplyByNoS(String applyNo,Integer staffNo) { return applyMapper.getApplyByNoS(applyNo,staffNo); }
     public Apply getApplyByNo(String applyNo) { return applyMapper.getApplyByNo(applyNo); }
     public void insertApply(Apply apply){applyMapper.insertApply(apply);}

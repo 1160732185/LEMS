@@ -110,6 +110,20 @@ public class DisuseController {
         }else return  disuseService.getAllDisuseByDisuseState(pageIndex*pageSize,disuseState,pageSize);
     }
 
+    @ApiOperation(value = "根据disuseState获取报废单数量", notes = "根据disuseState获取报废单数量", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "disuseState", value = "disuseState", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
+    })
+    @RequestMapping(value = "/disuse/disuseState/count", method = RequestMethod.GET,produces = "application/json")
+    public Integer getDisuseByDisuseState(@RequestParam("disuseState")String disuseState,@RequestParam("staffNo")Integer staffNo){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return disuseService.getAllDisuseByDisuseStateCS(staffNo,disuseState);
+        }else return  disuseService.getAllDisuseByDisuseStateC(disuseState);
+    }
+
+
     @ApiOperation(value = "添加报废单", notes = "添加报废单", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "disuse", value = "disuse", dataType = "Disuse", paramType = "body"),

@@ -17,6 +17,17 @@ public class DisuseServiceImpl implements DisuseService {
     public List<Disuse> getAllDisuse(Integer firstRow,Integer pageSize) { return disuseMapper.getAllDisuse(firstRow,pageSize); }
     public List<Disuse> getAllDisuseByDisuseStateS(Integer staffNo,String disuseState , Integer firstRow, Integer pageSize){return disuseMapper.getAllDisuseByDisuseStateS(staffNo,disuseState,firstRow,pageSize);}
     public List<Disuse> getAllDisuseByDisuseState(Integer firstRow,String disuseState ,Integer pageSize){return disuseMapper.getAllDisuseByDisuseState(firstRow,disuseState,pageSize);}
+
+    @Override
+    public Integer getAllDisuseByDisuseStateCS(Integer staffNo, String disuseState) {
+        return disuseMapper.getAllDisuseByDisuseStateCS(staffNo,disuseState);
+    }
+
+    @Override
+    public Integer getAllDisuseByDisuseStateC(String disuseState) {
+        return null;
+    }
+
     public Disuse getDisuseByNoS(String disuseNo,Integer staffNo) { return disuseMapper.getDisuseByNoS(disuseNo,staffNo); }
     public Disuse getDisuseByNo(String disuseNo) { return disuseMapper.getDisuseByNo(disuseNo); }
     public Disuse getDisuseByDeviceNo(String deviceNo) { return disuseMapper.getDisuseByDeviceNo(deviceNo); }

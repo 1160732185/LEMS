@@ -11,6 +11,8 @@ public interface DisuseService {
     List<Disuse> getAllDisuse(Integer firstRow,Integer pageSize);
     List<Disuse> getAllDisuseByDisuseStateS(Integer staffNo,String disuseState, Integer firstRow, Integer pageSize);
     List<Disuse> getAllDisuseByDisuseState(Integer firstRow,String disuseState,Integer pageSize);
+    Integer getAllDisuseByDisuseStateCS(Integer staffNo,String disuseState);
+    Integer getAllDisuseByDisuseStateC(String disuseState);
     Disuse getDisuseByNo(String disuseNo);
     Disuse getDisuseByNoS(String disuseNo,Integer staffNo);
     Disuse getDisuseByDeviceNo(String disuseNo);

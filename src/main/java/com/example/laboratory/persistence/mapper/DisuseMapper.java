@@ -27,10 +27,16 @@ public interface DisuseMapper {
     @Select("select * from disuse limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuse (Integer firstRow,Integer pageSize);
 
+    @Select("select count(*) from disuse where staffNo=#{staffNo} and disuseState = #{disuseState}")
+    public Integer getAllDisuseByDisuseStateCS (Integer staffNo,String disuseState);
+
+    @Select("select count(*) from disuse where disuseState=#{disuseState}")
+    public Integer  getAllDisuseByDisuseStateC (String disuseState);
+
     @Select("select * from disuse where staffNo=#{staffNo} and disuseState = #{disuseState} limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuseByDisuseStateS (Integer staffNo,String disuseState ,Integer firstRow,Integer pageSize);
 
-    @Select("select * from disuse limit #{firstRow},#{pageSize}")
+    @Select("select * from disuse where disuseState=#{disuseState} limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuseByDisuseState (Integer firstRow,String disuseState ,Integer pageSize);
 
     @Insert("insert into disuse(disuseNo,disuseStaffNo,disuseDate,disuseState,disuseUpdateDate)" +

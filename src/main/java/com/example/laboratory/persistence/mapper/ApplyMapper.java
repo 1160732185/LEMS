@@ -14,6 +14,18 @@ public interface ApplyMapper {
     @Select("select count(*) from apply")
     public Integer getApplyCount ();
 
+    @Select("select count(*) from apply where applyType=#{applyType} and applyStaffNo=#{staffNo} and applyState='待审查' ")
+    public  Integer getApplyByTypeCS(String applyType,Integer staffNo);
+
+    @Select("select count(*) from apply where applyType=#{applyType} and applyState='待审查' ")
+    public  Integer getApplyByTypeC(String applyType);
+
+    @Select("select count(*) from apply where applyState=#{applyState} and applyStaffNo=#{staffNo} ")
+    public  Integer getApplyByStateCS(String applyType,Integer staffNo);
+
+    @Select("select count(*) from apply where applyState=#{applyState} ")
+    public  Integer getApplyByStateC(String applyType);
+
     @Select("select * from apply where applyType=#{applyType} and applyStaffNo=#{staffNo}  and applyState='待审查' limit #{firstRow},#{pageSize}")
     public  List<Apply> getApplyByTypeS(String applyType,Integer staffNo,Integer firstRow,Integer pageSize);
 

@@ -100,6 +100,38 @@ public class ApplyController {
         }
     }
 
+
+    @ApiOperation(value = "根据Type获取申请单数量", notes = "根据Type获取申请单数量", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "applyType", value = "applyType", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query"),
+    })
+    @RequestMapping(value = "/apply/applyType/count", method = RequestMethod.GET,produces = "application/json")
+    public Integer getApplyByType(@RequestParam("applyType")String applyType,@RequestParam("staffNo")Integer staffNo){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return applyService.getApplyByTypeCS(applyType,staffNo);
+        }else{
+            return applyService.getApplyByTypeC(applyType);
+        }
+    }
+
+    @ApiOperation(value = "根据State获取申请单数量", notes = "根据State获取申请单数量", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "applyState", value = "applyState", dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query"),
+    })
+    @RequestMapping(value = "/apply/applyState/count", method = RequestMethod.GET,produces = "application/json")
+    public Integer getApplyByState(@RequestParam("applyState")String applyState,@RequestParam("staffNo")Integer staffNo){
+        Staff staff = staffService.getStaffByNo(staffNo);
+        if(staff.getStaffDuty().equals("普通员工")){
+            return applyService.getApplyByStateCS(applyState,staffNo);
+        }else{
+            return applyService.getApplyByStateC(applyState);
+        }
+    }
+
+
     @ApiOperation(value = "根据State获取申请单", notes = "根据State获取申请单", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "applyState", value = "applyState", dataType = "String", paramType = "query"),

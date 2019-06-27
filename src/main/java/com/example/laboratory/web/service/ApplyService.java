@@ -13,6 +13,10 @@ public interface ApplyService {
     List<Apply> getApplyByType(String applyType,Integer firstRow,Integer pageSize);
     List<Apply> getApplyByStateS(String applyState,Integer staffNo,Integer firstRow,Integer pageSize);
     List<Apply> getApplyByState(String applyState,Integer firstRow,Integer pageSize);
+    Integer getApplyByTypeCS(String applyType,Integer staffNo);
+    Integer getApplyByTypeC(String applyType);
+    Integer getApplyByStateCS(String applyType,Integer staffNo);
+    Integer getApplyByStateC(String applyType);
     Apply getApplyByNo(String applyNo);
     Apply getApplyByNoS(String applyNo,Integer staffNo);
     void insertApply(Apply apply);
