@@ -8,7 +8,7 @@ import java.util.List;
 public interface Staff_RoomService {
     List<Staff_Room> getStaffRoomByStaffNo(Integer staffNo);
 
-    List<Staff_Room> getStaffRoomByRoomNo(Integer roomNo);
+    List<Staff> getStaffRoomByRoomNo(Integer roomNo);
 
     void insertStaff(Integer staffNo,Integer roomNo);
 }

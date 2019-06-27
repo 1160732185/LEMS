@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mariadb://192.168.137.26:3306/laboratory_equipment_management_system?characterEncoding=UTF-8
-    username: test
-    password: 23wistestfor509pi
+    url: jdbc:mariadb://localhost:3306/laboratory_equipment_management_system?characterEncoding=UTF-8
+    username: root
+    password: Gzx@123
     driver-class-name: org.mariadb.jdbc.Driver
 mybatis:
   type-aliases-package: com.resetful.model

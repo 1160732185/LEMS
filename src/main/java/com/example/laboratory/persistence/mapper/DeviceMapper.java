@@ -25,11 +25,11 @@ public interface DeviceMapper {
             "where d.roomNo=sr.roomNo and sr.staffNo=#{staffNo}")
     public List<Device> getAllDeviceS (Integer staffNo);
 
-    @Insert("insert into device(deviceName,deviceType,deviceNorm,devicePrice)" +
-            " values(#{deviceName},#{deviceType},#{deviceNorm},#{devicePrice})")
+    @Insert("insert into device(deviceNo,staffNo,firmNo,modelNo,roomNo,deviceAddDate,deviceState)" +
+            " values(#{deviceNo},#{staffNo},#{firmNo},#{modelNo},#{roomNo},#{deviceAddDate},#{deviceState})")
     public void insertDevice(Device device);
 
-    @Update("update device set deviceName = #{deviceName},devicePrice = #{devicePrice},deviceType = #{deviceType},deviceNorm = #{deviceNorm} where deviceNo = #{deviceNo}")
+    @Update("update device set roomNo = #{roomNo},deviceState = #{deviceState} where deviceNo=#{deviceNo}")
     public void updateDevice(Device device);
 
     @Delete("delete from device where deviceNo=#{No}")

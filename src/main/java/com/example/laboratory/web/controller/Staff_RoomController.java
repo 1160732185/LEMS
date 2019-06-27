@@ -1,5 +1,6 @@
 package com.example.laboratory.web.controller;
 
+import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.common.model.Staff_Room;
 import com.example.laboratory.web.controller.pojo.MessageBox;
 import com.example.laboratory.web.service.Staff_RoomService;
@@ -24,12 +25,14 @@ public class Staff_RoomController {
     Staff_RoomService staff_roomService;
     @ApiOperation(value = "添加员工-房间", notes = "添加员工-房间", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "staffno", value = "staffno", dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "roomno", value = "roomno", dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "roomNo", value = "roomNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/staff_room", method = RequestMethod.POST, produces = "application/json")
     public MessageBox insertStaff(@RequestParam("staffNo") Integer staffNo, @RequestParam("roomNo") Integer roomNo) {
         MessageBox messageBox = new MessageBox();
+        System.out.println("staff"+staffNo);
+        System.out.println("room"+roomNo);
         staff_roomService.insertStaff(staffNo,roomNo);
         messageBox.setStatus(MessageBox.INSERT_STAFF_ROOM_SUCCESS_CODE);
         messageBox.setMessage("insert staff_room success");
@@ -46,7 +49,8 @@ public class Staff_RoomController {
     @ApiOperation(value = "通过房间查看员工", notes = "通过房间查看员工", produces = "application/json")
     @ApiImplicitParam(name = "roomNo", value = "roomNo", dataType = "Integer", paramType = "query")
     @RequestMapping(value = "/staff_room/roomNo", method = RequestMethod.GET, produces = "application/json")
-    public List<Staff_Room>  getStaffRoomByRoomNo(@RequestParam("roomNo") Integer roomNo) {
+    public List<Staff>  getStaffRoomByRoomNo(@RequestParam("roomNo") Integer roomNo) {
+        System.out.println("roomNo"+roomNo);
         return staff_roomService.getStaffRoomByRoomNo(roomNo);
     }
 

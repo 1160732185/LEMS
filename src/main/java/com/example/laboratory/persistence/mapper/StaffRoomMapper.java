@@ -1,5 +1,6 @@
 package com.example.laboratory.persistence.mapper;
 
+import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.common.model.Staff_Room;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,6 +16,6 @@ public interface StaffRoomMapper {
     @Select("select * from staff_room where staffNo = #{staffNo}")
     List<Staff_Room> selectStaffRoomByStaffNo(Integer staffNo);
 
-    @Select("select * from staff_room where roomNo = #{roomNo}")
-    List<Staff_Room> selectStaffRoomByRoomNo(Integer roomNo);
+    @Select("select s.staffNo,staffName,staffSex,staffEmail,staffDuty,staffTelephone from staff_room sr,staff s where s.staffNo=sr.staffNo and roomNo = #{roomNo}")
+    List<Staff> selectStaffRoomByRoomNo(Integer roomNo);
 }

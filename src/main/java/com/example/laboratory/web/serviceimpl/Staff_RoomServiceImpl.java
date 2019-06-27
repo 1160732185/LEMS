@@ -1,5 +1,6 @@
 package com.example.laboratory.web.serviceimpl;
 
+import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.common.model.Staff_Room;
 import com.example.laboratory.persistence.mapper.StaffRoomMapper;
 import com.example.laboratory.web.service.Staff_RoomService;
@@ -16,7 +17,7 @@ public class Staff_RoomServiceImpl implements Staff_RoomService {
     }
 
     @Override
-    public List<Staff_Room> getStaffRoomByRoomNo(Integer roomNo) {
+    public List<Staff> getStaffRoomByRoomNo(Integer roomNo) {
         return staffRoomMapper.selectStaffRoomByRoomNo(roomNo);
     }
 

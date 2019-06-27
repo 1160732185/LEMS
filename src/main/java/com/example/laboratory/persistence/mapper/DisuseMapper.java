@@ -18,7 +18,7 @@ public interface DisuseMapper {
     @Select("select * from disuse where disuseNo=#{disuseNo}")
     public Disuse getDisuseByNo(String disuseNo);
 
-    @Select("select * from disuse where deviceNo=#{deviceNo} ORDERBY disuseDate DESC limit 1")
+    @Select("select * from disuse where deviceNo=#{deviceNo} ORDER BY disuseDate DESC limit 1")
     public Disuse getDisuseByDeviceNo(String deviceNo);
 
     @Select("select * from disuse where staffNo=#{staffNo} limit #{firstRow},#{pageSize}")

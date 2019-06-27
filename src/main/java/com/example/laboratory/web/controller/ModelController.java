@@ -23,7 +23,7 @@ public class ModelController {
     ModelService modelService;
     private static final Logger logger = LoggerFactory.getLogger(ModelController.class);
 
-    @ApiOperation(value = "获取产品所有型号", notes = "获取产品所有型号", produces = "application/json")
+    @ApiOperation(value = "获取所有型号", notes = "获取所有型号", produces = "application/json")
     @RequestMapping(value = "/model/modelNo", method = RequestMethod.GET,produces = "application/json")
     public List<String> getAllModelNo() {
         return modelService.getAllModelNo();
@@ -58,7 +58,7 @@ public class ModelController {
             @ApiImplicitParam(name = "modelNo", value = "No", dataType = "string", paramType = "path"),
     })
     @RequestMapping(value = "/model/{modelNo}", method = RequestMethod.GET,produces = "application/json")
-    public Model getModel(@PathVariable("modelNo")String modelNo){
+    public Model getModelByNo(@PathVariable("modelNo")String modelNo){
         Model modelBean=null;
         modelBean=modelService.getModelByNo(modelNo);
         if(modelBean==null)
@@ -121,7 +121,7 @@ public class ModelController {
             @ApiImplicitParam(name = "modelNo", value = "No", dataType = "string", paramType = "path"),
     })
     @RequestMapping(value = "/model/{modelNo}", method = RequestMethod.DELETE,produces = "application/json")
-    public MessageBox deleteUser(@PathVariable("modelNo") String modelNo)
+    public MessageBox deleteModel(@PathVariable("modelNo") String modelNo)
     {
         MessageBox messageBox=new MessageBox();
         try{

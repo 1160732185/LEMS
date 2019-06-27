@@ -66,7 +66,7 @@ public class RoomController {
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/room/{roomNo}", method = RequestMethod.GET,produces = "application/json")
-    public Room getRoom(@PathVariable("roomNo")Integer roomNo,@RequestParam("staffNo")Integer staffNo){
+    public Room getRoomByNo(@PathVariable("roomNo")Integer roomNo,@RequestParam("staffNo")Integer staffNo){
         Staff staff = staffService.getStaffByNo(staffNo);
         Room roomBean=null;
         if(staff.getStaffDuty().equals("普通员工")){
@@ -136,7 +136,7 @@ public class RoomController {
             @ApiImplicitParam(name = "roomNo", value = "No", dataType = "string", paramType = "path"),
     })
     @RequestMapping(value = "/room/{roomNo}", method = RequestMethod.DELETE,produces = "application/json")
-    public MessageBox deleteUser(@PathVariable("roomNo") String roomNo)
+    public MessageBox deleteRoom(@PathVariable("roomNo") String roomNo)
     {
         MessageBox messageBox=new MessageBox();
         try{
