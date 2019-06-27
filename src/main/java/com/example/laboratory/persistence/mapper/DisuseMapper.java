@@ -33,11 +33,11 @@ public interface DisuseMapper {
     @Select("select * from disuse limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuseByDisuseState (Integer firstRow,String disuseState ,Integer pageSize);
 
-    @Insert("insert into disuse(disuseNo,disuseStaffNo,disuseDate,disuseReason,disuseType,disuseState,disuseUpdateDate)" +
-            " values(#{disuseNo},#{disuseStaffNo},#{disuseDate},#{disuseReason},#{disuseType},#{disuseState},#{disuseUpdateDate})")
+    @Insert("insert into disuse(disuseNo,disuseStaffNo,disuseDate,disuseState,disuseUpdateDate)" +
+            " values(#{disuseNo},#{disuseStaffNo},#{disuseDate},#{disuseState},#{disuseUpdateDate})")
     public void insertDisuse(Disuse disuse);
 
-    @Update("update disuse set disuseReason = #{disuseReason},disuseType = #{disuseType} where disuseNo = #{disuseNo}")
+    @Update("")
     public void updateDisuseS(Disuse disuse);
 
     @Update("update disuse set checkStaffNo=#{checkStaffNo},disuseUpdateDate = #{disuseUpdateDate},disuseState = #{disuseState},disuseWay=#{disuseWay} where disuseNo = #{disuseNo}")

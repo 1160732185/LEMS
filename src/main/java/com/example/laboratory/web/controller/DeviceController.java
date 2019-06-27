@@ -82,6 +82,7 @@ public class DeviceController {
     {
         MessageBox messageBox=new MessageBox();
         try{
+            device.setDeviceAddDate(new Date());
             deviceService.insertDevice(device);
         }
         catch ( Exception e)

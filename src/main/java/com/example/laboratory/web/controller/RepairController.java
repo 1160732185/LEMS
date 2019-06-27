@@ -1,8 +1,10 @@
 package com.example.laboratory.web.controller;
 
+import com.example.laboratory.common.model.Device;
 import com.example.laboratory.common.model.Repair;
 import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.web.controller.pojo.MessageBox;
+import com.example.laboratory.web.service.DeviceService;
 import com.example.laboratory.web.service.RepairService;
 import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
@@ -23,6 +25,8 @@ public class RepairController {
     RepairService repairService;
     @Autowired
     StaffService staffService;
+    @Autowired
+    DeviceService deviceService;
     private static final Logger logger = LoggerFactory.getLogger(RepairController.class);
 
     @ApiOperation(value = "获取报修单数量", notes = "获取报修单数量", produces = "application/json")
@@ -62,11 +66,11 @@ public class RepairController {
 
     @ApiOperation(value = "根据No获取报修单", notes = "根据No获取报修单", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "repairNo", value = "repairNo", dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "repairNo", value = "repairNo", dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "staffNo", value = "staffNo", dataType = "Integer", paramType = "query")
     })
     @RequestMapping(value = "/repair/{repairNo}", method = RequestMethod.GET,produces = "application/json")
-    public Repair getRepair(@PathVariable("repairNo")Integer repairNo,@RequestParam("staffNo")Integer staffNo){
+    public Repair getRepair(@PathVariable("repairNo")String repairNo,@RequestParam("staffNo")Integer staffNo){
         Staff staff = staffService.getStaffByNo(staffNo);
         Repair repairBean=null;
         if(staff.getStaffDuty().equals("普通员工")){
@@ -109,6 +113,9 @@ public class RepairController {
             }
             repair.setRepairNo(str);
             repairService.insertRepair(repair);
+            Device device = deviceService.getDeviceByNo(repair.getDeviceNo());
+            device.setDeviceState("维修中");
+            deviceService.updateDevice(device);
         }
         catch ( Exception e)
         {
@@ -133,14 +140,16 @@ public class RepairController {
     {
         MessageBox messageBox=new MessageBox();
         Staff staff = staffService.getStaffByNo(staffNo);
-        if(repair.getRepairResult()!=null){
+        System.out.println("repair:"+repair.getRepairNo());
+        Repair repair1 = repairService.getRepairByNo(repair.getRepairNo());
+        if(repair1.getRepairResult()!=null){
             messageBox.setStatus(MessageBox.UPDATE_REPAIR_FAILURE_CODE);
             messageBox.setMessage("订单已修理完毕");
             logger.error(messageBox.getMessage());
             return messageBox;
         }
         try{
-            if(staff.getStaffDuty().equals("普通员工")&&repair.getStaffNo()!=staff.getStaffNo()){
+            if(staff.getStaffDuty().equals("普通员工")/*&&repair.getStaffNo()!=staff.getStaffNo()*/){
                 messageBox.setStatus(MessageBox.UPDATE_REPAIR_FAILURE_CODE);
                 messageBox.setMessage("无权限更新");
                 logger.error(messageBox.getMessage());
@@ -150,6 +159,10 @@ public class RepairController {
                     repair.setRepairFinishDate(new Date());
                 }
                 repairService.updateRepair(repair);
+                System.out.println(repair.getRepairNo()+repair.getRepairResult());
+                Device device = deviceService.getDeviceByNo(repair.getDeviceNo());
+                if(repair.getRepairResult().equals("修理完成")) {device.setDeviceState("使用中");deviceService.updateDevice(device);}
+                if(repair.getRepairResult().equals("无法修理")) {device.setDeviceState("已报废");deviceService.updateDevice(device);}
             }
         }
         catch ( Exception e)
@@ -174,7 +187,7 @@ public class RepairController {
     {
         MessageBox messageBox=new MessageBox();
         try{
-            repairService.deleteRepair(Integer.valueOf(repairNo));
+            repairService.deleteRepair(repairNo);
         }
         catch ( Exception e)
         {

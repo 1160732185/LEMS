@@ -14,25 +14,25 @@ public interface ApplyMapper {
     @Select("select count(*) from apply")
     public Integer getApplyCount ();
 
-    @Select("select * from apply where applyType=#{applyType} and staffNo=#{staffNo}  and applyState='待审查' limit #{firstRow},#{pageSize}")
+    @Select("select * from apply where applyType=#{applyType} and applyStaffNo=#{staffNo}  and applyState='待审查' limit #{firstRow},#{pageSize}")
     public  List<Apply> getApplyByTypeS(String applyType,Integer staffNo,Integer firstRow,Integer pageSize);
 
     @Select("select * from apply where applyType=#{applyType} and applyState='待审查' limit #{firstRow},#{pageSize}")
     public  List<Apply> getApplyByType(String applyType,Integer firstRow,Integer pageSize);
 
-    @Select("select * from apply where applyState=#{applyState} and staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
+    @Select("select * from apply where applyState=#{applyState} and applyStaffNo=#{staffNo} limit #{firstRow},#{pageSize}")
     public  List<Apply> getApplyByStateS(String applyState,Integer staffNo,Integer firstRow,Integer pageSize);
 
     @Select("select * from apply where applyState=#{applyState} limit #{firstRow},#{pageSize}")
     public  List<Apply> getApplyByState(String applyState,Integer firstRow,Integer pageSize);
 
-    @Select("select * from apply where applyNo=#{applyNo} and staffNo=#{staffNo}")
+    @Select("select * from apply where applyNo=#{applyNo} and applyStaffNo=#{staffNo}")
     public Apply getApplyByNoS(String applyNo,Integer staffNo);
 
     @Select("select * from apply where applyNo=#{applyNo}")
     public Apply getApplyByNo(String applyNo);
 
-    @Select("select * from apply where staffNo=#{staffNo} limit #{firstRow},#{pageSize}")
+    @Select("select * from apply where applyStaffNo=#{staffNo} limit #{firstRow},#{pageSize}")
     public List<Apply> getAllApplyS (Integer staffNo,Integer firstRow,Integer pageSize);
 
     @Select("select * from apply limit #{firstRow},#{pageSize}")

@@ -13,10 +13,10 @@ public interface RepairMapper {
     public Integer getRepairCount ();
 
     @Select("select * from repair where repairNo=#{repairNo} and staffNo=#{staffNo}")
-    public Repair getRepairByNoS(Integer repairNo, Integer staffNo);
+    public Repair getRepairByNoS(String repairNo, Integer staffNo);
 
     @Select("select * from repair where repairNo=#{repairNo}")
-    public Repair getRepairByNo(Integer repairNo);
+    public Repair getRepairByNo(String repairNo);
 
     @Select("select * from repair where deviceNo=#{deviceNo} ORDER BY repairDate desc limit 1")
     public Repair getRepairByDevice(String deviceNo);
@@ -31,9 +31,9 @@ public interface RepairMapper {
             " values(#{repairNo},#{firmNo},#{repairFinishDate},#{deviceNo},#{staffNo},#{repairResult},#{repairPrice},#{repairDate})")
     public void insertRepair(Repair repair);
 
-    @Update("update repair set repairFinishDate=#{repairFinishDate},repairResult = #{repairResult},repairPrice = #{repairPrice}")
+    @Update("update repair set repairFinishDate=#{repairFinishDate},repairResult = #{repairResult},repairPrice = #{repairPrice} where repairNo=#{repairNo}")
     public void updateRepair(Repair repair);
 
     @Delete("delete from repair where repairNo=#{No}")
-    public void deleteRepair(Integer No);
+    public void deleteRepair(String No);
 }

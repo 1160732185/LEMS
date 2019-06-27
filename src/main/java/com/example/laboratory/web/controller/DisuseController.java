@@ -126,6 +126,7 @@ public class DisuseController {
                 str+=c;
             }
             disuse.setDisuseNo(str);
+            disuse.setDisuseState("待审核");
             disuseService.insertDisuse(disuse);
         }
         catch ( Exception e)
@@ -160,9 +161,10 @@ public class DisuseController {
         Staff staff = staffService.getStaffByNo(staffNo);
         try{
             if(staff.getStaffDuty().equals("普通员工")){
-                disuse.setDisuseDate(new Date());
-                disuse.setDisuseStaffNo(staff.getStaffNo());
-                disuseService.updateDisuseS(disuse);
+                messageBox.setStatus(MessageBox.UPDATE_DISUSE_FAILURE_CODE);
+                messageBox.setMessage("error!");
+                logger.error(messageBox.getMessage());
+                return messageBox;
             }else{
                 disuse.setDisuseUpdateDate(new Date());
                 disuse.setCheckStaffNo(staff.getStaffNo());

@@ -9,10 +9,10 @@ public interface RepairService {
     Integer getRepairCountS(Integer staffNo);
     List<Repair> getAllRepairS(Integer staffNo, Integer firstRow, Integer pageSize);
     List<Repair> getAllRepair(Integer firstRow,Integer pageSize);
-    Repair getRepairByNo(Integer repairNo);
+    Repair getRepairByNo(String repairNo);
     Repair getRepairByDevice(String deviceNo);
-    Repair getRepairByNoS(Integer repairNo,Integer staffNo);
+    Repair getRepairByNoS(String repairNo,Integer staffNo);
     void insertRepair(Repair repair);
     void updateRepair(Repair repair);
-    void deleteRepair(Integer No);
+    void deleteRepair(String No);
 }
