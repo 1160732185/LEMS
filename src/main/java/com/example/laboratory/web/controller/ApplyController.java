@@ -55,6 +55,8 @@ public class ApplyController {
     public List<Apply> getAllApply(@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize) {
         Staff staff = staffService.getStaffByNo(staffNo);
         Integer firstRow=pageIndex*pageSize;
+        System.out.println("findallpageIndex"+pageIndex);
+        System.out.println("findallpageSize"+pageSize);
         if(staff.getStaffDuty().equals("普通员工")) {
             return applyService.getAllApplyS(staffNo,firstRow,pageSize);
         }
@@ -93,6 +95,8 @@ public class ApplyController {
     @RequestMapping(value = "/apply/applyType", method = RequestMethod.GET,produces = "application/json")
     public List<Apply> getApplyByType(@RequestParam("applyType")String applyType,@RequestParam("staffNo")Integer staffNo,@RequestParam("pageIndex") Integer pageIndex,@RequestParam("pageSize") Integer pageSize){
         Staff staff = staffService.getStaffByNo(staffNo);
+        System.out.println("pageIndex"+pageIndex);
+        System.out.println("pageSize"+pageSize);
         if(staff.getStaffDuty().equals("普通员工")){
             return applyService.getApplyByTypeS(applyType,staffNo,pageIndex*pageSize,pageSize);
         }else{

@@ -4,6 +4,11 @@ spring:
     username: test
     password: 23wistestfor509pi
     driver-class-name: org.mariadb.jdbc.Driver
+  mail:
+   host: smtp.126.com
+   username: quinceyzheng@126.com
+   password: 23509testpi
+   default-encoding: UTF-8
 mybatis:
   type-aliases-package: com.resetful.model
 #  mapper-locations: classpath:mybatis/mapper/*.xml

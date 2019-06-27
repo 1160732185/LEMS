@@ -39,8 +39,8 @@ public interface DisuseMapper {
     @Select("select * from disuse where disuseState=#{disuseState} limit #{firstRow},#{pageSize}")
     public List<Disuse> getAllDisuseByDisuseState (Integer firstRow,String disuseState ,Integer pageSize);
 
-    @Insert("insert into disuse(disuseNo,disuseStaffNo,disuseDate,disuseState,disuseUpdateDate)" +
-            " values(#{disuseNo},#{disuseStaffNo},#{disuseDate},#{disuseState},#{disuseUpdateDate})")
+    @Insert("insert into disuse(disuseNo,deviceNo,disuseStaffNo,disuseDate,disuseState,disuseUpdateDate)" +
+            " values(#{disuseNo},#{deviceNo},#{disuseStaffNo},#{disuseDate},#{disuseState},#{disuseUpdateDate})")
     public void insertDisuse(Disuse disuse);
 
     @Update("")

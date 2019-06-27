@@ -19,6 +19,8 @@ public class ServiceConfiguration {
     @Bean
     DisuseService getDisuseService(){return new DisuseServiceImpl(); }
     @Bean
+    MailService getMailService(){return new MailServiceImpl(); }
+    @Bean
     FirmService getFirmService(){return  new FirmServiceImpl();}
     @Bean
     ModelService getModelService(){return new ModelServiceImpl();}

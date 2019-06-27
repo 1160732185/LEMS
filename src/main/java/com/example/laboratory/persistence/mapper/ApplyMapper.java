@@ -46,7 +46,7 @@ public interface ApplyMapper {
 
     @Select("select * from apply where applyStaffNo=#{staffNo} limit #{firstRow},#{pageSize}")
     public List<Apply> getAllApplyS (Integer staffNo,Integer firstRow,Integer pageSize);
-
+//????
     @Select("select * from apply limit #{firstRow},#{pageSize}")
     public List<Apply> getAllApply (Integer firstRow,Integer pageSize);
 
