@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface StaffMapper {
-    @Select("select count(*) from staff")
+    @Select("select count(staffNo) from staff")
     public  Integer getStaffCount();
 
     @Select("select * from staff where staffNo=#{No}")
@@ -25,4 +25,5 @@ public interface StaffMapper {
 
     @Delete("delete from staff where staffNo=#{No}")
     public void deleteStaff(Integer No);
+
 }

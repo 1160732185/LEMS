@@ -5,15 +5,10 @@ import com.example.laboratory.web.controller.pojo.MessageBox;
 import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +16,14 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1")
 public class StaffController {
-    @Autowired
-    StaffService staffService;
+
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    StaffService staffService;
 
     @ApiOperation(value = "获取员工数量", notes = "获取员工数量", produces = "application/json")
-    @RequestMapping(value = "/staff/count", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value = "/staff/count", method = RequestMethod.GET, produces = "application/json")
     public MessageBox getStaffSum() {
         MessageBox messageBox = new MessageBox();
         messageBox.setStatus(staffService.getStaffCount());
@@ -35,40 +31,35 @@ public class StaffController {
         return messageBox;
     }
 
-
-/*    @Secured({"ROLE_管理员"})*/
+    /*  @Secured({"ROLE_管理员"})  */
     @ApiOperation(value = "获取员工列表", notes = "获取员工列表", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
     })
-    @RequestMapping(value = "/staff", method = RequestMethod.GET,produces = "application/json")
-    public List<Staff> getAllStaff(@RequestParam Integer pageIndex,@RequestParam Integer pageSize) {
-    logger.info("有人获取员工列表");
-    Integer firstRow=pageIndex*pageSize;
-        return staffService.getAllStaff(firstRow,pageSize);
+    @RequestMapping(value = "/staff", method = RequestMethod.GET, produces = "application/json")
+    public List<Staff> getAllStaff(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
+        Integer firstRow = pageIndex * pageSize;
+        return staffService.getAllStaff(firstRow, pageSize);
     }
-
 
     @ApiOperation(value = "根据No获取用户", notes = "根据No获取用户", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "staffNo", value = "No", dataType = "string", paramType = "path"),
     })
     @RequestMapping(value = "/staff/{staffNo}", method = RequestMethod.GET,produces = "application/json")
-    public Staff getStaff(@PathVariable("staffNo")String staffNo){
-        int No=-1;
-        try{
-            No=Integer.valueOf(staffNo);
-        } catch (NumberFormatException e)
-        {
-
+    public Staff getStaff(@PathVariable("staffNo")String staffNo) {
+        int No = -1;
+        try {
+            No = Integer.valueOf(staffNo);
+        } catch (NumberFormatException e) {
+            logger.error(e.getMessage());
         }
-        Staff staffBean=null;
-        if(No!=-1)
-            staffBean=staffService.getStaffByNo(Integer.valueOf(staffNo));
-        if(staffBean==null)
-        {
-            logger.error(new UsernameNotFoundException("找不到该账户信息！").getMessage());
+        Staff staffBean = null;
+        if(No != -1)
+            staffBean = staffService.getStaffByNo(Integer.valueOf(staffNo));
+        if(staffBean == null) {
+            logger.error("找不到该账户信息！");
         }
         return staffBean;
     }
@@ -77,24 +68,21 @@ public class StaffController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "staff", value = "staff", dataType = "Staff", paramType = "body"),
     })
-    @RequestMapping(value = "/staff", method = RequestMethod.POST,produces = "application/json")
-    public MessageBox insertStaff(@RequestBody Staff staff)
-    {
+    @RequestMapping(value = "/staff", method = RequestMethod.POST, produces = "application/json")
+    public MessageBox insertStaff(@RequestBody Staff staff) {
         MessageBox messageBox=new MessageBox();
-        try{
+        try {
             staff.setStaffRegisterTime(new Date());
             staffService.insertStaff(staff);
-        }
-        catch ( Exception e)
-        {
+        } catch (Exception e) {
             messageBox.setStatus(MessageBox.INSERT_STAFF_FAILURE_CODE);
             messageBox.setMessage(e.getMessage());
             logger.error(messageBox.getMessage());
             return messageBox;
         }
         messageBox.setStatus(MessageBox.INSERT_STAFF_SUCCESS_CODE);
-        messageBox.setMessage(staff.getStaffNo().toString());
-        logger.info(messageBox.getMessage());
+        messageBox.setMessage(String.valueOf(staffService.getAllStaff(
+                staffService.getStaffCount() - 1, 1).get(0).getStaffNo()));
         return messageBox;
     }
 
