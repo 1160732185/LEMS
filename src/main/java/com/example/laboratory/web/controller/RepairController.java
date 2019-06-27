@@ -81,6 +81,18 @@ public class RepairController {
         return repairBean;
     }
 
+    @ApiOperation(value = "根据deviceNo获取报修单", notes = "根据deviceNo获取报修单", produces = "application/json")
+    @ApiImplicitParam(name = "deviceNo", value = "diviceNo", dataType = "String", paramType = "path")
+    @RequestMapping(value = "/repair/deviceNo/{deviceNo}", method = RequestMethod.GET,produces = "application/json")
+    public Repair getDisuseByDeviceNo(@PathVariable("deviceNo")String deviceNo){
+        Repair repairBean=repairService.getRepairByDevice(deviceNo);
+        if(repairBean==null)
+        {
+            logger.error(new UsernameNotFoundException("找不到该报修单信息！").getMessage());
+        }
+        return repairBean;
+    }
+
     @ApiOperation(value = "添加报修单", notes = "添加报修单", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "repair", value = "repair", dataType = "Repair", paramType = "body"),

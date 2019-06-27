@@ -84,9 +84,9 @@ public class DisuseController {
     }
 
     @ApiOperation(value = "根据deviceNo获取报废单", notes = "根据deviceNo获取报废单", produces = "application/json")
-    @ApiImplicitParam(name = "deviceNo", value = "disuseNo", dataType = "String", paramType = "path")
+    @ApiImplicitParam(name = "deviceNo", value = "deviceNo", dataType = "String", paramType = "path")
     @RequestMapping(value = "/disuse/deviceNo/{deviceNo}", method = RequestMethod.GET,produces = "application/json")
-    public Disuse getDisuseByDeviceNo(@PathVariable("deviceNo")String deviceNo,@RequestParam("staffNo")Integer staffNo){
+    public Disuse getDisuseByDeviceNo(@PathVariable("deviceNo")String deviceNo){
         Disuse disuseBean=disuseService.getDisuseByDeviceNo(deviceNo);
         if(disuseBean==null)
         {

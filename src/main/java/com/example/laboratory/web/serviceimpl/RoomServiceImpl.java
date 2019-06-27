@@ -2,6 +2,7 @@ package com.example.laboratory.web.serviceimpl;
 
 import com.example.laboratory.common.model.Room;
 import com.example.laboratory.persistence.mapper.RoomMapper;
+import com.example.laboratory.persistence.mapper.StaffRoomMapper;
 import com.example.laboratory.web.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 

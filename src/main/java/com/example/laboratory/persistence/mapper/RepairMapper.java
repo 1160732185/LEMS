@@ -18,7 +18,7 @@ public interface RepairMapper {
     @Select("select * from repair where repairNo=#{repairNo}")
     public Repair getRepairByNo(Integer repairNo);
 
-    @Select("select * from repair where deviceNo=#{deviceNo}")
+    @Select("select * from repair where deviceNo=#{deviceNo} ORDERBY repairDate DESC limit 1")
     public Repair getRepairByDevice(String deviceNo);
 
     @Select("select * from repair where staffNo=#{staffNo} limit #{firstRow},#{pageSize}")

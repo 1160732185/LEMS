@@ -38,26 +38,19 @@ public class StaffController {
             @ApiImplicitParam(name = "pageSize", value = "pageSize", dataType = "Integer", paramType = "query"),
     })
     @RequestMapping(value = "/staff", method = RequestMethod.GET, produces = "application/json")
-    public List<Staff> getAllStaff(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
+    public List<Staff> getAllStaff(@RequestParam("pageIndex") Integer pageIndex, @RequestParam("pageSize") Integer pageSize) {
         Integer firstRow = pageIndex * pageSize;
         return staffService.getAllStaff(firstRow, pageSize);
     }
 
     @ApiOperation(value = "根据No获取用户", notes = "根据No获取用户", produces = "application/json")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "staffNo", value = "No", dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "staffNo", value = "No", dataType = "Integer", paramType = "path"),
     })
     @RequestMapping(value = "/staff/{staffNo}", method = RequestMethod.GET,produces = "application/json")
-    public Staff getStaff(@PathVariable("staffNo")String staffNo) {
-        int No = -1;
-        try {
-            No = Integer.valueOf(staffNo);
-        } catch (NumberFormatException e) {
-            logger.error(e.getMessage());
-        }
+    public Staff getStaff(@PathVariable("staffNo")Integer staffNo) {
         Staff staffBean = null;
-        if(No != -1)
-            staffBean = staffService.getStaffByNo(Integer.valueOf(staffNo));
+        staffBean = staffService.getStaffByNo(staffNo);
         if(staffBean == null) {
             logger.error("找不到该账户信息！");
         }

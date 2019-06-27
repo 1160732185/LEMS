@@ -16,6 +16,14 @@ public class MessageBox {
     final static public int INSERT_STAFF_SUCCESS_CODE=2004;
     final static public int INSERT_STAFF_FAILURE_CODE=2005;
 
+    // 员工-房间状态码
+    final static public int UPDATE_STAFF_ROOM_SUCCESS_CODE=2500;
+    final static public int UPDATE_STAFF_ROOM_FAILURE_CODE=2501;
+    final static public int DELETE_STAFF_ROOM_SUCCESS_CODE=2502;
+    final static public int DELETE_STAFF_ROOM_FAILURE_CODE=2503;
+    final static public int INSERT_STAFF_ROOM_SUCCESS_CODE=2504;
+    final static public int INSERT_STAFF_ROOM_FAILURE_CODE=2505;
+
     // 房间状态码
     final static public int UPDATE_ROOM_SUCCESS_CODE=3000;
     final static public int UPDATE_ROOM_FAILURE_CODE=3001;
