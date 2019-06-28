@@ -1,8 +1,10 @@
 package com.example.laboratory.web.controller;
 
+import com.example.laboratory.common.model.Device;
 import com.example.laboratory.common.model.Disuse;
 import com.example.laboratory.common.model.Staff;
 import com.example.laboratory.web.controller.pojo.MessageBox;
+import com.example.laboratory.web.service.DeviceService;
 import com.example.laboratory.web.service.DisuseService;
 import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
@@ -25,6 +27,8 @@ public class DisuseController {
     DisuseService disuseService;
     @Autowired
     StaffService staffService;
+    @Autowired
+    DeviceService deviceService;
     private static final Logger logger = LoggerFactory.getLogger(DisuseController.class);
 
     @ApiOperation(value = "获取报废单数量", notes = "获取报废单数量", produces = "application/json")
@@ -140,6 +144,9 @@ public class DisuseController {
                 str+=c;
             }
             disuse.setDisuseNo(str);
+            Device device = deviceService.getDeviceByNo(disuse.getDeviceNo());
+            device.setDeviceState("报废中");
+            deviceService.updateDevice(device);
             disuse.setDisuseState("待审核");
             disuseService.insertDisuse(disuse);
         }
@@ -180,8 +187,15 @@ public class DisuseController {
                 logger.error(messageBox.getMessage());
                 return messageBox;
             }else{
+                System.out.println(disuse);
+                System.out.println("disuseNo"+disuse.getDisuseNo());
+                System.out.println("diseusestate"+disuse.getDisuseState());
                 disuse.setDisuseUpdateDate(new Date());
                 disuse.setCheckStaffNo(staff.getStaffNo());
+                Device device = deviceService.getDeviceByNo(disusebean.getDeviceNo());
+                if(disuse.getDisuseState().equals("未通过")) device.setDeviceState("使用中");
+                if(disuse.getDisuseState().equals("已报废")) device.setDeviceState("已报废");
+                deviceService.updateDevice(device);
                 disuseService.updateDisuse(disuse);
             }
         }
@@ -189,7 +203,7 @@ public class DisuseController {
         {
             messageBox.setStatus(MessageBox.UPDATE_DISUSE_FAILURE_CODE);
             messageBox.setMessage(e.getMessage());
-            logger.error(messageBox.getMessage());
+            logger.error("1234"+messageBox.getMessage());
             return messageBox;
         }
         messageBox.setStatus(MessageBox.UPDATE_DISUSE_SUCCESS_CODE);

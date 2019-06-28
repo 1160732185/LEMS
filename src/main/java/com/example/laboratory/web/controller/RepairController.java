@@ -149,12 +149,12 @@ public class RepairController {
             return messageBox;
         }
         try{
-            if(staff.getStaffDuty().equals("普通员工")/*&&repair.getStaffNo()!=staff.getStaffNo()*/){
+/*            if(staff.getStaffDuty().equals("普通员工")*//*&&repair.getStaffNo()!=staff.getStaffNo()*//*){
                 messageBox.setStatus(MessageBox.UPDATE_REPAIR_FAILURE_CODE);
                 messageBox.setMessage("无权限更新");
                 logger.error(messageBox.getMessage());
                 return messageBox;
-            }else{
+            }else{*/
                 if(repair.getRepairResult()!=null){
                     repair.setRepairFinishDate(new Date());
                 }
@@ -163,7 +163,7 @@ public class RepairController {
                 Device device = deviceService.getDeviceByNo(repair.getDeviceNo());
                 if(repair.getRepairResult().equals("修理完成")) {device.setDeviceState("使用中");deviceService.updateDevice(device);}
                 if(repair.getRepairResult().equals("无法修理")) {device.setDeviceState("已报废");deviceService.updateDevice(device);}
-            }
+           /* }*/
         }
         catch ( Exception e)
         {
