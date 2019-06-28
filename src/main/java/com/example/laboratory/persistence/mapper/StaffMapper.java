@@ -23,7 +23,7 @@ public interface StaffMapper {
             " values(#{staffName},#{staffSex},#{staffEmail},#{staffPassword},#{staffTelephone},#{staffDuty},#{staffRegisterTime})")
     public void insertStaff(Staff staff);
 
-    @Update("update staff set staffEmail = #{staffEmail},staffPassword = #{staffPassword},staffTelephone = #{staffTelephone} where staffNo = #{staffNo}")
+    @Update("update staff set staffEmail = #{staffEmail},staffDuty = #{staffDuty},staffPassword = #{staffPassword},staffTelephone = #{staffTelephone} where staffNo = #{staffNo}")
     public void updateStaff(Staff staff);
 
     @Delete("delete from staff where staffNo=#{No}")
