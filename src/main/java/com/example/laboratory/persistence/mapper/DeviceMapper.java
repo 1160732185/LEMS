@@ -8,8 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface DeviceMapper {
-    @Select("select count(*) from device d,staff_room sr " +
-            "where d.roomNo=sr.roomNo and staffNo=#{staffNo}")
+ @Select("select count(*) from device d,staff_room sr " +
+            "where d.roomNo=sr.roomNo and sr.staffNo=#{staffNo}")
     public Integer getDeviceCountS (Integer staffNo);
 
     @Select("select count(*) from device")

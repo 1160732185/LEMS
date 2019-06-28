@@ -57,6 +57,20 @@ public class StaffController {
         return staffBean;
     }
 
+    @ApiOperation(value = "根据Email获取用户", notes = "根据Email获取用户", produces = "application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "staffEmail", value = "staffEmail", dataType = "String", paramType = "query"),
+    })
+    @RequestMapping(value = "/staff/staffEmail", method = RequestMethod.GET,produces = "application/json")
+    public Integer getStaffByStaffEmail(@RequestParam("staffEmail")String staffEmail) {
+        Integer staffNo = staffService.getStaffNoByStaffEmail(staffEmail);
+        if(staffNo == null) {
+            logger.error("找不到该账户信息！");
+        }
+        return staffNo;
+    }
+
+
     @ApiOperation(value = "添加员工", notes = "添加员工", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "staff", value = "staff", dataType = "Staff", paramType = "body"),

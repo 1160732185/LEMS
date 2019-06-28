@@ -10,6 +10,9 @@ public interface StaffMapper {
     @Select("select count(staffNo) from staff")
     public  Integer getStaffCount();
 
+    @Select("select staffNo from staff where staffEmail=#{staffEmail}")
+    public  Integer getStaffNoByStaffEmail(String StaffEmail);
+
     @Select("select * from staff where staffNo=#{No}")
     public Staff getStaffByNo(Integer No);
 

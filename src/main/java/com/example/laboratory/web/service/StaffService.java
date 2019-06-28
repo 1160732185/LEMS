@@ -8,6 +8,8 @@ public interface StaffService {
 
     List<Staff> getAllStaff(Integer firstRow, Integer pageSize);
 
+    Integer getStaffNoByStaffEmail(String staffEmail);
+
     Staff getStaffByNo(Integer No);
 
     void insertStaff(Staff staff);

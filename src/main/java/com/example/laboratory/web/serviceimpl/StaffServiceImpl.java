@@ -18,6 +18,11 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public Integer getStaffNoByStaffEmail(String staffEmail) {
+        return staffMapper.getStaffNoByStaffEmail(staffEmail);
+    }
+
+    @Override
     public Staff getStaffByNo(Integer No) {
         return staffMapper.getStaffByNo(No);
     }
