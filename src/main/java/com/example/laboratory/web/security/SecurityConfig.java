@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.filter.CorsFilter;
+
 @EnableGlobalMethodSecurity(securedEnabled = true)
 /*@EnableGlobalMethodSecurity(prePostEnabled=true)*/
 @EnableWebSecurity
@@ -18,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private StaffAuthenticationSuccessHandler staffAuthenticationSuccessHandler;
     @Autowired
     private StaffAuthenticationFailHandler staffAuthenticationFailHandler;
-
+    @Autowired
+    private CorsFilter corsFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(HttpMethod.OPTIONS)
@@ -36,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic();
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
+        http.addFilterAt(corsFilter,CorsFilter.class);
     }
 
     @Bean

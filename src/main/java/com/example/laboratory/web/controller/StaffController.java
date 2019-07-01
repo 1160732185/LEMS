@@ -5,6 +5,8 @@ import com.example.laboratory.web.controller.pojo.MessageBox;
 import com.example.laboratory.web.service.StaffService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +33,8 @@ public class StaffController {
         return messageBox;
     }
 
-    /*  @Secured({"ROLE_管理员"})  */
+    /*@PreAuthorize("管理员")*/
+    @Secured({"ROLE_管理员"})
     @ApiOperation(value = "获取员工列表", notes = "获取员工列表", produces = "application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageIndex", value = "pageIndex", dataType = "Integer", paramType = "query"),
